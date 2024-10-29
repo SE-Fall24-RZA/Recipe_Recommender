@@ -22,6 +22,11 @@ import {
   AlertDialogFooter,
   useDisclosure,
   FormLabel,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
 } from "@chakra-ui/react";
 import recipeDB from "../apis/recipeDB";
 
@@ -55,6 +60,10 @@ const AddRecipe = () => {
   const handleChange = (event) => {
     const { id, value } = event.target;
     setRecipe((prevValue) => ({ ...prevValue, [id]: value }));
+  };
+
+  const handleRatingChange = (value) => {
+    setRecipe((prevValue) => ({ ...prevValue, recipeRating: value }));
   };
 
   const addIngredient = () => {
@@ -265,12 +274,20 @@ const AddRecipe = () => {
           </Box>
           <Box width={"100%"}>
             <FormLabel htmlFor='recipeRating'>Recipe Rating</FormLabel>
-            <Input
-              type={"number"}
+            <Slider
               id='recipeRating'
-              onChange={handleChange}
               value={recipe.recipeRating}
-            />
+              min={0}
+              max={5}
+              step={0.5}
+              onChange={handleRatingChange}
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb boxSize={6} />
+            </Slider>
+            <Text>Rating: {recipe.recipeRating} / 5</Text>
           </Box>
           <Box width={"100%"}>
             <FormLabel htmlFor='cuisine'>Cuisine</FormLabel>
