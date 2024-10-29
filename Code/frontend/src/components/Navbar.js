@@ -17,6 +17,7 @@ import {
   useColorMode,
   Center,
   Heading,
+  Image,
 } from "@chakra-ui/react";
 
 // interface Props {
@@ -58,6 +59,10 @@ export default function Nav(props) {
       <Box color={"black"} mb={5} bg={"green.300"} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box pl={10}>
+            <Image
+              src='./public/images/logo_1by1.png'
+              alt='Saveurs Sélection'
+            />
             <Heading size={"md"}>Saveurs Sélection</Heading>
           </Box>
 
