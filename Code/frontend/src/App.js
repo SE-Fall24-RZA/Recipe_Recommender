@@ -83,20 +83,24 @@ class App extends Component {
           password,
         },
       });
-      console.log(response.data);
+
       if (response.data.success) {
         this.setState({
           isLoggedIn: true,
           userData: response.data.user,
         });
         localStorage.setItem("userName", response.data.user.userName);
-        console.log(response.data.user);
         alert("Successfully logged in!");
       } else {
-        console.log("Credentials are incorrect");
+        const errorMessage = response.data.message || "An error occurred";
+        console.log(errorMessage);
+        alert(errorMessage); // Display specific message based on response
       }
     } catch (err) {
-      console.log(err);
+      console.log("An error occurred:", err);
+      alert(
+        "An error occurred while trying to log in. Please try again later."
+      );
     }
   };
 

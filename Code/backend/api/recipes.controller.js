@@ -2,14 +2,20 @@ import RecipesDAO from "../dao/recipesDAO.js";
 
 export default class RecipesController {
   static async apiAuthLogin(req, res) {
-    let filters = {};
-    filters.userName = req.query.userName;
-    filters.password = req.query.password;
-    const { success, user } = await RecipesDAO.getUser({
-      filters,
-    });
-    res.json({ success, user });
+    const filters = {
+      userName: req.query.userName,
+      password: req.query.password,
+    };
+
+    const { success, user, message } = await RecipesDAO.getUser({ filters });
+
+    if (success) {
+      res.json({ success: true, user });
+    } else {
+      res.json({ success: false, message });
+    }
   }
+
   static async apiAuthSignup(req, res) {
     if (req.body) {
       let data = {};

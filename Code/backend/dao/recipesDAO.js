@@ -28,22 +28,21 @@ export default class RecipesDAO {
   }
 
   static async getUser({ filters = null } = {}) {
-    let query;
-    let cursor;
-    let user;
-    query = { userName: filters.userName };
-    if (filters) {
-      cursor = await users.findOne(query);
-      if (cursor.userName) {
-        if (cursor.password == filters.password) {
-          return { success: true, user: cursor };
-        } else {
-          return { success: false };
-        }
-      } else {
-        return { success: false };
-      }
+    if (!filters || !filters.userName)
+      return { success: false, message: "User does not exist" };
+
+    const user = await users.findOne({ userName: filters.userName });
+
+    if (!user) {
+      // User does not exist
+      return { success: false, message: "User does not exist" };
+    } else if (user.password !== filters.password) {
+      // Password is incorrect
+      return { success: false, message: "Incorrect password" };
     }
+
+    // Successful login
+    return { success: true, user };
   }
 
   static async addUser({ data = null } = {}) {
