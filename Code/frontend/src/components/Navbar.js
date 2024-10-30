@@ -3,7 +3,6 @@
 import {
   Box,
   Flex,
-  Avatar,
   Text,
   Button,
   Menu,
@@ -52,69 +51,55 @@ export default function Nav(props) {
   };
   const handleMealPlan = () => {
     props.handleMealPlan();
-  }
+  };
   const handleLogout = () => {
     console.log("logged out");
     props.handleLogout();
   };
-  return (
-    <>
-      <Box color={"black"} mb={5} bg={"green.300"} px={4}>
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box pl={10}>
-            <Image
-              src='./public/images/logo_1by1.png'
-              alt='Saveurs Sélection'
-            />
-            <Heading size={"md"}>Saveurs Sélection</Heading>
-          </Box>
 
-          <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={7}>
-              {props.user ? (
-                <Menu>
-                  <MenuButton
-                    as={Button}
-                    rounded={"full"}
-                    variant={"link"}
-                    cursor={"pointer"}
-                    minW={0}
-                  >
-                    <Avatar
-                      size={"sm"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
-                    />
-                  </MenuButton>
-                  <MenuList alignItems={"center"}>
-                    <br />
-                    <Center>
-                      <Avatar
-                        size={"xl"}
-                        src={
-                          "https://avatars.dicebear.com/api/male/username.svg"
-                        }
-                      />
-                    </Center>
-                    <br />
-                    <Center>
-                      <p>{props.user.userName}</p>
-                    </Center>
-                    <br />
-                    <MenuDivider />
-                    <MenuItem onClick={handleBookMarks}>Bookmarks</MenuItem>
-                    <MenuItem onClick={handleMealPlan}>Meal Plan</MenuItem>
-                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                  </MenuList>
-                </Menu>
-              ) : (
-                <Button onClick={props.onLoginClick} colorScheme='teal'>
-                  Login
-                </Button>
-              )}
-            </Stack>
-          </Flex>
+  return (
+    <Box color={"black"} mb={5} bg={"green.300"} px={4}>
+      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <Box pl={10}>
+          <Image src='./public/images/logo_1by1.png' alt='Saveurs Sélection' />
+          <Heading size={"md"}>Saveurs Sélection</Heading>
+        </Box>
+
+        <Flex alignItems={"center"}>
+          <Stack direction={"row"} spacing={7}>
+            {props.user ? (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                  <Text fontWeight='bold' color='black'>
+                    Welcome, {props.user.userName}
+                  </Text>
+                </MenuButton>
+                <MenuList alignItems={"center"}>
+                  <br />
+                  <Center>
+                    <p>{props.user.userName}</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <MenuItem onClick={handleBookMarks}>Bookmarks</MenuItem>
+                  <MenuItem onClick={handleMealPlan}>Meal Plan</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Text fontWeight='normal' color='black'>
+                Login to see your favorite recipes!
+              </Text>
+            )}
+          </Stack>
         </Flex>
-      </Box>
-    </>
+      </Flex>
+    </Box>
   );
 }

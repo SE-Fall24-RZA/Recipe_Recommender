@@ -45,16 +45,16 @@ class App extends Component {
   handleBookMarks = () => {
     this.setState({
       isProfileView: true,
-      isMealPlanView: false
+      isMealPlanView: false,
     });
   };
 
   handleMealPlan = () => {
     this.setState({
       isProfileView: false,
-      isMealPlanView: true
-    })
-  }
+      isMealPlanView: true,
+    });
+  };
 
   handleProfileView = () => {
     this.setState({
@@ -234,7 +234,7 @@ class App extends Component {
   handleProfileView = () => {
     this.setState({
       isProfileView: false,
-      isMealPlanView: false
+      isMealPlanView: false,
     });
   };
 
@@ -261,9 +261,11 @@ class App extends Component {
                   // onRemove={this.handleRemoveBookmark}
                 />
               </UserProfile>
-            ) : (this.state.isMealPlanView ? (
-              <UserMealPlan handleProfileView={this.handleProfileView}
-                user={this.state.userData}></UserMealPlan>
+            ) : this.state.isMealPlanView ? (
+              <UserMealPlan
+                handleProfileView={this.handleProfileView}
+                user={this.state.userData}
+              ></UserMealPlan>
             ) : (
               <Tabs variant='soft-rounded' colorScheme='green'>
                 <TabList ml={10}>
@@ -299,7 +301,7 @@ class App extends Component {
                   </TabPanel>
                 </TabPanels>
               </Tabs>
-            ))}
+            )}
           </>
         ) : (
           <>
