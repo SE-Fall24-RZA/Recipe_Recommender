@@ -70,8 +70,8 @@ export default class RecipesDAO {
     query = { userName: userName };
     try {
       cursor = await users.findOne(query);
-      if(!cursor) {
-        throw new Error(`Cannot find user with name ${userName}`)
+      if (!cursor) {
+        throw new Error(`Cannot find user with name ${userName}`);
       }
       if (cursor.userName) {
         return cursor.bookmarks;
@@ -80,7 +80,7 @@ export default class RecipesDAO {
       }
     } catch (e) {
       console.log(`error: ${e}`);
-      throw e
+      throw e;
     }
   }
 
@@ -211,8 +211,8 @@ export default class RecipesDAO {
   static async addRecipe(recipe) {
     let response = {};
     try {
-      if(!recipe["recipeName"]) {
-        throw new Error("recipeName must be provided")
+      if (!recipe["recipeName"]) {
+        throw new Error("recipeName must be provided");
       }
       let inputRecipe = {};
       inputRecipe["TranslatedRecipeName"] = recipe["recipeName"];
@@ -237,12 +237,12 @@ export default class RecipesDAO {
       }
       inputRecipe["Restaurant"] = restaurants;
       inputRecipe["Restaurant-Location"] = locations;
-    
+
       response = await recipes.insertOne(inputRecipe);
       return response;
     } catch (e) {
       console.error(`Unable to add recipe, ${e}`);
-      throw e
+      throw e;
     }
   }
 
@@ -334,11 +334,11 @@ export default class RecipesDAO {
   static async addRecipeToMealPlan(userName, recipeID, weekDay) {
     let response;
     try {
-      if(recipeID === undefined || recipeID === null) {
-        throw new Error("recipe id not defined")
+      if (recipeID === undefined || recipeID === null) {
+        throw new Error("recipe id not defined");
       }
-      if(!weekDay) {
-        throw new Error("weekDay not defined")
+      if (!weekDay) {
+        throw new Error("weekDay not defined");
       }
       let updateBody = JSON.parse(
         '{ "meal-plan.' + weekDay + '": "' + recipeID + '" }'
@@ -350,7 +350,7 @@ export default class RecipesDAO {
       return response;
     } catch (e) {
       console.log(`Unable to add recipe to meal plan, ${e}`);
-      throw e
+      throw e;
     }
   }
 
@@ -379,7 +379,7 @@ export default class RecipesDAO {
             mealPlanResponse = { ...mealPlanResponse, ...dayPlan };
           }
         }
-        return mealPlanResponse
+        return mealPlanResponse;
       } else {
         throw new Error(`Cannot find user with name ${userName}`);
       }
@@ -413,22 +413,21 @@ export default class RecipesDAO {
   }
 
   static async initDB() {
-    if(recipes) {
-      return {success: true}
+    if (recipes) {
+      return { success: true };
     }
     try {
       await mongodb.MongoClient.connect(process.env.RECIPES_DB_URI, {
-          maxPoolSize: 50,
-          wtimeoutMS: 2500,
-          useNewUrlParser: true,
+        maxPoolSize: 50,
+        wtimeoutMS: 2500,
+        useNewUrlParser: true,
       }).then(async (client) => {
-        await this.injectDB(client)
-        return {success: true}
-      })
-      
+        await this.injectDB(client);
+        return { success: true };
+      });
     } catch (e) {
       console.log(e);
-      return {success: false}
+      return { success: false };
     }
   }
 }
