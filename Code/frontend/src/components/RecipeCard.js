@@ -102,15 +102,16 @@ const RecipeCard = (props) => {
           fallbackSrc='https://via.placeholder.com/250' // Placeholder for missing images
         />
         <Box display='flex' flexDirection='row' alignItems='center'>
-          <Text data-testid='rating' fontWeight='bold'>
-            Rating:{" "}
-          </Text>
+          <Text data-testid='rating'>Rating: </Text>
           <Rating rating={props.recipe["Recipe-rating"]}></Rating>
         </Box>
         <Text data-testid='time' fontWeight='bold' mb={1}>
           Cooking Time: {props.recipe.TotalTimeInMins} mins
         </Text>
-        <Text data-testid='diet' fontWeight='bold' mb={1}>
+        <Text data-testid='rating' fontWeight='bold' mb={1}>
+          Rating: {props.recipe["Recipe-rating"]}
+        </Text>
+        <Text data-testid='diet' fontWeight='bold' mb={2}>
           Diet Type: {props.recipe["Diet-type"]}
         </Text>
         <Tag

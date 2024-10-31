@@ -235,29 +235,30 @@ const AddRecipe = () => {
         </Alert>
       )}
 
-      <VStack spacing={"5"} alignItems={"flex-start"}>
-        <HStack spacing={"5"}>
-          <Box width={"100%"}>
+      <VStack spacing={5} align='stretch'>
+        <HStack spacing={5} align='stretch'>
+          <Box flex='1'>
             <FormLabel htmlFor='recipeName'>Recipe Name</FormLabel>
             <Input
-              type={"text"}
+              type='text'
               id='recipeName'
               onChange={handleChange}
               value={recipe.recipeName}
             />
           </Box>
-          <Box width={"100%"}>
+          <Box flex='1'>
             <FormLabel htmlFor='cookingTime'>Cooking Time (mins)</FormLabel>
             <Input
-              type={"number"}
+              type='number'
               id='cookingTime'
               onChange={handleChange}
               value={recipe.cookingTime}
             />
           </Box>
         </HStack>
-        <HStack spacing={"5"}>
-          <Box width={"100%"}>
+
+        <HStack spacing={5} align='stretch'>
+          <Box flex='1'>
             <FormLabel htmlFor='dietType'>Diet Type</FormLabel>
             <Select
               id='dietType'
@@ -272,7 +273,7 @@ const AddRecipe = () => {
               ))}
             </Select>
           </Box>
-          <Box width={"100%"}>
+          <Box flex='1'>
             <FormLabel htmlFor='recipeRating'>Recipe Rating</FormLabel>
             <Slider
               id='recipeRating'
@@ -281,6 +282,7 @@ const AddRecipe = () => {
               max={5}
               step={0.5}
               onChange={handleRatingChange}
+              colorScheme='green'
             >
               <SliderTrack>
                 <SliderFilledTrack />
@@ -289,7 +291,7 @@ const AddRecipe = () => {
             </Slider>
             <Text>Rating: {recipe.recipeRating} / 5</Text>
           </Box>
-          <Box width={"100%"}>
+          <Box flex='1'>
             <FormLabel htmlFor='cuisine'>Cuisine</FormLabel>
             <Select id='cuisine' onChange={handleChange} value={recipe.cuisine}>
               <option value=''>Select Cuisine</option>
@@ -301,20 +303,21 @@ const AddRecipe = () => {
             </Select>
           </Box>
         </HStack>
-        <HStack spacing={"5"}>
-          <Box width={"100%"}>
+
+        <HStack spacing={5} align='stretch'>
+          <Box flex='1'>
             <FormLabel htmlFor='recipeURL'>Recipe URL</FormLabel>
             <Input
-              type={"URL"}
+              type='URL'
               id='recipeURL'
               onChange={handleChange}
               value={recipe.recipeURL}
             />
           </Box>
-          <Box width={"100%"}>
+          <Box flex='1'>
             <FormLabel htmlFor='imageURL'>Image URL</FormLabel>
             <Input
-              type={"URL"}
+              type='URL'
               id='imageURL'
               onChange={handleChange}
               value={recipe.imageURL}
@@ -322,14 +325,13 @@ const AddRecipe = () => {
           </Box>
         </HStack>
 
-        {/* Ingredients Input Handler */}
-        <HStack spacing={2} width={"100%"}>
-          <InputGroup variant={"filled"} width={"100%"}>
+        <HStack spacing={2} width='100%'>
+          <InputGroup variant='filled' width='100%'>
             <FormLabel htmlFor='ingredientInput' mb={0}>
               Ingredients
             </FormLabel>
             <Input
-              type={"text"}
+              type='text'
               id='ingredientInput'
               value={ingredientInput}
               onChange={(e) => setIngredientInput(e.target.value)}
@@ -339,21 +341,19 @@ const AddRecipe = () => {
               Add Ingredient
             </Button>
           </InputGroup>
-          <HStack spacing={2}>
-            {recipe.ingredients.map((ingredient) => (
+          <HStack spacing={2} mt={2} wrap='wrap'>
+            {recipe.ingredients.map((ingredient, index) => (
               <Badge
-                key={ingredient}
-                m={1}
-                _hover={{ cursor: "pointer" }}
-                onClick={() => removeIngredient(ingredient)}
+                key={index}
                 colorScheme='green'
+                onClick={() => removeIngredient(ingredient)}
+                cursor='pointer'
               >
                 {ingredient}
               </Badge>
             ))}
           </HStack>
         </HStack>
-
         {/* Restaurants Input Handler */}
         <HStack spacing={2} width={"100%"}>
           <InputGroup variant={"filled"} width={"100%"}>
@@ -426,8 +426,9 @@ const AddRecipe = () => {
             value={recipe.instructions}
           />
         </Box>
-        <Button onClick={addRecipe} colorScheme='blue'>
-          Add Recipe
+
+        <Button colorScheme='green' onClick={addRecipe} width='full'>
+          Save Recipe
         </Button>
       </VStack>
 
@@ -457,7 +458,6 @@ const AddRecipe = () => {
       </AlertDialog>
     </Box>
   );
-
 };
 
 export default AddRecipe;
