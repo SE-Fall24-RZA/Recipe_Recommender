@@ -1,11 +1,13 @@
-name: Code Formatter and Syntax Check
+name: Code Syntax Check
 on:
   pull_request:
     branches:
       - master
+      - group31-fall24
   push:
     branches:
       - master
+      - group31-fall24
 jobs:
   test:
     name: Check the source code

@@ -3,9 +3,11 @@ on:
   pull_request:
     branches:
       - master
+      - group31-fall24
   push:
     branches:
       - master
+      - group31-fall24
 jobs:
   test:
     name: Check the source code
@@ -19,4 +21,4 @@ jobs:
       - name: Code Formatter
         run: |
             cd Code/backend
-            npm run format
+            npm run format:fix
