@@ -71,6 +71,9 @@ export default class RecipesDAO {
     query = { userName: userName };
     try {
       cursor = await users.findOne(query);
+      if(!cursor) {
+        throw new Error(`Cannot find user with name ${userName}`)
+      }
       if (cursor.userName) {
         return cursor.bookmarks;
       } else {
@@ -78,6 +81,7 @@ export default class RecipesDAO {
       }
     } catch (e) {
       console.log(`error: ${e}`);
+      throw e
     }
   }
 

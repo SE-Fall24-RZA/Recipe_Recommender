@@ -23,11 +23,19 @@ export default class RecipesController {
   }
 
   static async apiGetBookmarks(req, res) {
-    if (req.query.userName) {
-      const bookmarks = await RecipesDAO.getBookmarks(req.query.userName);
-      res.json({ bookmarks });
-    } else {
-      res.json("Username not given");
+    try {
+      if (req.query.userName) {
+        const bookmarks = await RecipesDAO.getBookmarks(req.query.userName);
+        res.json({ bookmarks });
+      } else {
+        res.json("Username not given");
+      }
+    } catch (e) {
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        error: e.message,
+      });
     }
   }
 
