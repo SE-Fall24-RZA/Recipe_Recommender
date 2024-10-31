@@ -33,12 +33,8 @@ const LandingPage = ({ onGetStarted }) => {
       {/* Additional Details Section */}
       <VStack mt={12} spacing={8} align='center'>
         <Heading size='lg' color='green.500'>
-          Why Choose Our Recipe Manager?
+          Why Choose Saveurs Sélection?
         </Heading>
-        <Text fontSize={{ base: "sm", md: "md" }} color='gray.600'>
-          Our platform offers a variety of features designed to enhance your
-          cooking experience:
-        </Text>
 
         {/* Full-width Image Grid for Features */}
         <Grid
@@ -49,25 +45,25 @@ const LandingPage = ({ onGetStarted }) => {
         >
           {[
             {
-              src: "https://via.placeholder.com/1920x1080",
+              src: "https://miro.medium.com/v2/resize:fit:720/format:webp/0*wsWIB7I_n0XYMGca",
               title: "Search & Filter",
               description:
                 "Quickly find recipes by ingredients, cuisine, or dietary preferences.",
             },
             {
-              src: "https://via.placeholder.com/1920x1080",
+              src: "https://www.labellerr.com/blog/content/images/2024/03/image--6-.webp",
               title: "Organize Your Collection",
               description:
                 "Save your favorite recipes into personalized folders for easy access.",
             },
+            // {
+            //   src: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
+            //   title: "Share with Friends",
+            //   description:
+            //     "Easily share your recipes and meal plans with family and friends.",
+            // },
             {
-              src: "https://via.placeholder.com/1920x1080",
-              title: "Share with Friends",
-              description:
-                "Easily share your recipes and meal plans with family and friends.",
-            },
-            {
-              src: "https://via.placeholder.com/1920x1080",
+              src: "https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&w=600",
               title: "Meal Planning",
               description:
                 "Create and manage your weekly meal plans to simplify grocery shopping.",

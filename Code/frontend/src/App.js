@@ -231,6 +231,30 @@ class App extends Component {
     }
   };
 
+  editRecipe = async (recipeId, updatedData) => {
+    try {
+      const response = await recipeDB.put(
+        `/recipes/updateRecipe/${recipeId}`,
+        updatedData
+      );
+      if (response.status === 200) {
+        alert("Recipe updated successfully!");
+        // Refresh the recipes list or a specific recipe if needed
+        this.setState((prevState) => ({
+          recipeList: prevState.recipeList.map((recipe) =>
+            recipe._id === recipeId ? { ...recipe, ...updatedData } : recipe
+          ),
+          recipeByNameList: prevState.recipeByNameList.map((recipe) =>
+            recipe._id === recipeId ? { ...recipe, ...updatedData } : recipe
+          ),
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to update recipe:", error);
+      alert("Error updating the recipe. Please try again.");
+    }
+  };
+
   handleProfileView = () => {
     this.setState({
       isProfileView: false,
@@ -280,7 +304,10 @@ class App extends Component {
                       {this.state.isLoading ? (
                         <RecipeLoading />
                       ) : (
-                        <RecipeList recipes={this.state.recipeList} />
+                        <RecipeList
+                          recipes={this.state.recipeList}
+                          editRecipe={this.editRecipe}
+                        />
                       )}
                     </Box>
                   </TabPanel>

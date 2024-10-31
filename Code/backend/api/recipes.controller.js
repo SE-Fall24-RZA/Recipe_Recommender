@@ -186,4 +186,27 @@ export default class RecipesController {
       res.status(500).json({ error: e });
     }
   }
+
+  static async apiUpdateRecipe(req, res, next) {
+    try {
+      const recipeId = req.params.id; // Get the recipe ID from the request params
+      const updateData = req.body; // Get the updated recipe data from the request body
+
+      // Call the DAO method to update the recipe
+      const updateResponse = await RecipesDAO.updateRecipe(
+        recipeId,
+        updateData
+      );
+
+      if (updateResponse.modifiedCount === 0) {
+        return res
+          .status(404)
+          .json({ error: "Recipe not found or no updates made" });
+      }
+
+      res.json({ status: "success", data: updateResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }

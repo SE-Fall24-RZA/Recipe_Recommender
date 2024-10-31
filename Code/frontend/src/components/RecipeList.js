@@ -13,16 +13,20 @@ import {
   SimpleGrid,
   Text,
   Button,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
 import RecipeCard from "./RecipeCard";
 import Rating from "./Rating";
 import RateRecipe from "./RateRecipe";
+import recipeDB from "../apis/recipeDB"; // Assuming recipeDB is set up for API calls
 
-// Component to handle all the recipes
 const RecipeList = ({ recipes, refresh, searchName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
   const [isChange, setIsChange] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const youtube_videos =
     "https://www.youtube.com/results?search_query=how+to+make+" +
     currentRecipe["TranslatedRecipeName"];
@@ -30,6 +34,27 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
   const handleViewRecipe = (data) => {
     setIsOpen(true);
     setCurrentRecipe(data);
+    setIsEditing(false);
+  };
+
+  const handleEditToggle = () => setIsEditing(!isEditing);
+
+  const handleInputChange = (field, value) => {
+    setCurrentRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      [field]: value,
+    }));
+  };
+
+  const handleSaveEdit = () => {
+    recipeDB
+      .put(`/recipes/${currentRecipe._id}`, currentRecipe)
+      .then(() => {
+        setIsChange(true);
+        setIsEditing(false);
+        refresh(searchName); // Reload updated recipes
+      })
+      .catch((err) => console.error("Error saving recipe:", err));
   };
 
   const onClose = () => {
@@ -75,11 +100,21 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
           )}
         </SimpleGrid>
       </Box>
+
       <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent data-testid='recipeModal'>
           <ModalHeader fontSize='xl' fontWeight='bold'>
-            {currentRecipe.TranslatedRecipeName || "Recipe Details"}
+            {isEditing ? (
+              <Input
+                value={currentRecipe.TranslatedRecipeName || ""}
+                onChange={(e) =>
+                  handleInputChange("TranslatedRecipeName", e.target.value)
+                }
+              />
+            ) : (
+              currentRecipe.TranslatedRecipeName || "Recipe Details"
+            )}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -92,7 +127,17 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
               />
               <Box flex='1'>
                 <Text fontSize='lg' fontWeight='bold' mb={1}>
-                  Cooking Time: {currentRecipe.TotalTimeInMins} mins
+                  Cooking Time:{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe.TotalTimeInMins || ""}
+                      onChange={(e) =>
+                        handleInputChange("TotalTimeInMins", e.target.value)
+                      }
+                    />
+                  ) : (
+                    `${currentRecipe.TotalTimeInMins} mins`
+                  )}
                 </Text>
                 <Flex align='center' mb={2}>
                   <Text fontWeight='bold' mr={2}>
@@ -101,18 +146,62 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
                   <Rating rating={currentRecipe["Recipe-rating"]} />
                 </Flex>
                 <Text mb={2}>
-                  <Text as={"b"}>Diet Type:</Text> {currentRecipe["Diet-type"]}
+                  <Text as={"b"}>Diet Type:</Text>{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe["Diet-type"] || ""}
+                      onChange={(e) =>
+                        handleInputChange("Diet-type", e.target.value)
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Diet-type"]
+                  )}
                 </Text>
                 <Text mb={2}>
-                  <Text as={"b"}>Cuisine:</Text> {currentRecipe["Cuisine"]}
+                  <Text as={"b"}>Cuisine:</Text>{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe["Cuisine"] || ""}
+                      onChange={(e) =>
+                        handleInputChange("Cuisine", e.target.value)
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Cuisine"]
+                  )}
                 </Text>
                 <Text mb={2}>
                   <Text as={"b"}>Ingredients:</Text>{" "}
-                  {currentRecipe["Ingredients"]?.join(", ")}
+                  {isEditing ? (
+                    <Textarea
+                      value={currentRecipe["Ingredients"]?.join(", ") || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "Ingredients",
+                          e.target.value.split(", ")
+                        )
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Ingredients"]?.join(", ")
+                  )}
                 </Text>
                 <Text mb={2}>
                   <Text as={"b"}>Instructions:</Text>{" "}
-                  {currentRecipe["TranslatedInstructions"]}
+                  {isEditing ? (
+                    <Textarea
+                      value={currentRecipe["TranslatedInstructions"] || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "TranslatedInstructions",
+                          e.target.value
+                        )
+                      }
+                    />
+                  ) : (
+                    currentRecipe["TranslatedInstructions"]
+                  )}
                 </Text>
                 <Text color='blue.500'>
                   <a
@@ -128,6 +217,18 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
           </ModalBody>
           <ModalFooter>
             <RateRecipe recipe={currentRecipe} setChange={setIsChange} />
+            {isEditing ? (
+              <>
+                <Button colorScheme='teal' mr={3} onClick={handleSaveEdit}>
+                  Save
+                </Button>
+                <Button onClick={handleEditToggle}>Cancel</Button>
+              </>
+            ) : (
+              <Button colorScheme='yellow' mr={3} onClick={handleEditToggle}>
+                Edit Recipe
+              </Button>
+            )}
             <Button colorScheme='teal' mr={3} onClick={onClose}>
               Close
             </Button>

@@ -368,17 +368,19 @@ export default class RecipesDAO {
     try {
       cursor = await users.findOne({ userName: userName });
       if (cursor.userName) {
-        let plan = cursor['meal-plan'] ? cursor['meal-plan'] : {}
-        for(const day in plan) {
-          if(plan[day] != "") {
-            let recipe = await recipes.findOne({_id: new ObjectId(plan[day])})
-            let dayPlan = {}
-            dayPlan[day] = recipe
-            mealPlanResponse = {...mealPlanResponse, ...dayPlan}
+        let plan = cursor["meal-plan"] ? cursor["meal-plan"] : {};
+        for (const day in plan) {
+          if (plan[day] != "") {
+            let recipe = await recipes.findOne({
+              _id: new ObjectId(plan[day]),
+            });
+            let dayPlan = {};
+            dayPlan[day] = recipe;
+            mealPlanResponse = { ...mealPlanResponse, ...dayPlan };
           }
         }
-        console.log(mealPlanResponse)
-        return mealPlanResponse
+        console.log(mealPlanResponse);
+        return mealPlanResponse;
       } else {
         throw new Error(`Cannot find user with name ${userName}`);
       }
@@ -395,6 +397,19 @@ export default class RecipesDAO {
     } catch (e) {
       console.error(`Unable to get ingredients, ${e}`);
       return response;
+    }
+  }
+
+  static async updateRecipe(id, updateData) {
+    try {
+      const updateResponse = await recipesCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateData }
+      );
+      return updateResponse;
+    } catch (error) {
+      console.error(`Unable to update recipe: ${error}`);
+      throw error;
     }
   }
 }
