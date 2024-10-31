@@ -28,6 +28,21 @@ describe("Meal Plan", function() {
             const res2JSON = JSON.parse(response2.text)
             expect(response2.text.includes("monday")).true
             expect(res2JSON.monday === "").true
+        });
+        it("Should not add a recipe if no day is given", async function() {
+            await request(app).get(baseURL + "/initDB")
+            const response0 = await request(app).get(baseURL + "/getRecipeByName?recipeName=BLT");
+            const res0JSON =  JSON.parse(response0.text)
+            expect(response0.status).to.eql(200);
+            const response = await request(app).put(baseURL + "/mealPlan")
+                .send({ recipeID: res0JSON["recipes"][0]['_id'], userName: "Test" });
+            expect(response.status).not.to.eql(200);
+        });
+        it("Should not add a recipe if no recipeID is given", async function() {
+            await request(app).get(baseURL + "/initDB")
+            const response = await request(app).put(baseURL + "/mealPlan")
+                .send({ userName: "Test", weekDay: "tuesday" });
+            expect(response.status).not.to.eql(200);
         })
     })
 })
