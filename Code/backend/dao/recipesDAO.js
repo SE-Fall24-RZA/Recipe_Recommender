@@ -8,8 +8,12 @@ const ObjectId = mongodb.ObjectId;
 let recipes;
 let ingredients;
 let users;
-//Function to connect to DB
+
 export default class RecipesDAO {
+  /* Function to connect to DB and initialize references to database collections 
+    Params:
+      - conn: a MongoDB client connection
+  */
   static async injectDB(conn) {
     if (recipes) {
       return;
@@ -28,6 +32,13 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to retrieve a user with a given userName
+    Params: 
+      - filters: JSON object defining a 'userName' to search for
+    Returns:
+      - If the specified user exists, returns the user and a success message in JSON
+      - If the specified user does not exist, or some other error occurs, returns a failure message
+  */
   static async getUser({ filters = null } = {}) {
     if (!filters || !filters.userName)
       return { success: false, message: "User does not exist" };
@@ -46,6 +57,13 @@ export default class RecipesDAO {
     return { success: true, user };
   }
 
+  /* Function to add a new user into the database
+    Params:
+      - data: JSON object defining a 'userName' and 'password' for the new user
+    Returns:
+      - If all required fields are provided and valid, creates the new user and returns a success message in JSON
+      - Otherwise returns a failure message in JSON
+  */
   static async addUser({ data = null } = {}) {
     let query;
     let cursor;
@@ -62,7 +80,13 @@ export default class RecipesDAO {
     }
   }
 
-  //function to get bookmarks
+  /* Function to retrieve the bookmarks from a given user
+    Params:
+      - userName: The name of the user to get bookmarks for
+    Returns:
+      - If provided userName belongs to an existing user, returns an array of their current bookmarked recipes
+      - Otherwise, throws an error
+  */
   static async getBookmarks(userName) {
     let query;
     let cursor;
@@ -84,7 +108,12 @@ export default class RecipesDAO {
     }
   }
 
-  //Function to get recipe by name
+  /* Function to retrieve recipes by name
+    Params:
+      - filters: JSON object defining a 'recipeName' to search for recipes by
+    Returns:
+      - If all required fields are provided and valid, returns an array of all recipes matching the name
+  */
   static async getRecipeByName({ filters = null } = {}) {
     let query;
     if (filters) {
@@ -111,7 +140,12 @@ export default class RecipesDAO {
     }
   }
 
-  //Function to get the Recipe List
+  /* Function to get recipes based on provided filters
+    Params:
+      - filters: JSON object defining a which filters to search for recipes by
+    Returns:
+      - An array of recipes matching the specified filters
+  */
   static async getRecipes({
     filters = null,
     page = 0,
@@ -158,7 +192,7 @@ export default class RecipesDAO {
           recipesList[j - 1]["TranslatedRecipeName"].replace(/ /g, "+") +
           "\n\n";
       }
-
+      /* Handles sending emails to the user if the option is selected */
       if (flagger == "true") {
         var transporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
@@ -195,7 +229,10 @@ export default class RecipesDAO {
     }
   }
 
-  //Function to get the list of Cuisines
+  /* Function to retrieve all distinct cuisine types of recipes in the database
+    Returns:
+      - An array of all distinct cuisine types, if any exist (No duplicates)
+  */
   static async getCuisines() {
     let cuisines = [];
     try {
@@ -207,7 +244,13 @@ export default class RecipesDAO {
     }
   }
 
-  // Function to add a recipe
+  /* Function to add a new recipe into the database
+    Params:
+      - recipe: JSON object defining the fields for the new recipe; only recipeName is a required field
+    Returns:
+      - If all required fields are provided and valid, creates the new recipe and returns a successful response
+      - Otherwise, throws an error
+  */
   static async addRecipe(recipe) {
     let response = {};
     try {
@@ -246,6 +289,12 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to rate an existing recipe
+    Params:
+      - ratingBody: JSON object defining a 'recipeID' to rate and a 'rating' to give that recipe
+    Returns:
+      - If all required fields are provided and valid, averages the new rating into the existing rating for the specified recipe
+  */
   static async rateRecipe(ratingBody) {
     let r = await recipes
       .find({ _id: new ObjectId(ratingBody.recipeID) })
@@ -263,10 +312,16 @@ export default class RecipesDAO {
     );
   }
 
-  //function to add recipe to user profile
+  /* Function to add a recipe to the user's bookmarks
+    Params:
+      - userName: The name of the user to add the recipe to
+      - recipe: The recipe to be added to the user's bookmarks
+    Returns:
+      - If the specified user exists and the recipe is not already in their bookmarks, adds the recipe to their bookmarks and returns a success message in JSON
+      - Otherwise, returns a failure message
+  */
   static async addRecipeToProfile(userName, recipe) {
     try {
-      //console.log(`Attempting to add recipe to profile for user: ${userName}`);
 
       // First, check if the recipe already exists in the user's bookmarks
       const user = await users.findOne({ userName: userName });
@@ -290,14 +345,12 @@ export default class RecipesDAO {
         { $addToSet: { bookmarks: recipe } }
       );
 
-      //console.log("Update result:", updateResult);
 
       if (updateResult.modifiedCount === 0) {
         console.log("No changes made to bookmarks");
         return { success: false, message: "No changes made to bookmarks" };
       }
 
-      //console.log("Recipe added to bookmarks successfully");
       return {
         success: true,
         message: "Recipe added to bookmarks successfully",
@@ -308,6 +361,14 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to remove a recipe from a user's bookmarks
+    Params:
+      - userName: The name of the user to remove the recipe from
+      - recipe: The recipe to be removed from the user's bookmarks
+    Returns:
+      - If the specified user exists and the recipe is in their bookmarks, removes the recipe from their bookmarks and returns a success message in JSON
+      - Otherwise, returns a failure message
+  */
   static async removeBookmark(userName, recipeId) {
     try {
       const updateResponse = await users.updateOne(
@@ -331,6 +392,15 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to add a recipe to the user's meal plan
+    Params:
+      - userName: The name of the user to add the recipe to
+      - recipeID: The id of the recipe to be added to the user's meal plan
+      - weekDay: A day of the week ('sunday'-'saturday') to assign the recipe to
+    Returns:
+      - If the specified user exists and a weekday is given, assigns the provided recipe to the meal plan and returns a successful response
+      - Otherwise, throws an error
+  */
   static async addRecipeToMealPlan(userName, recipeID, weekDay) {
     let response;
     try {
@@ -354,6 +424,12 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to retrieve a user's meal plan
+    Params:
+      - userName: The name of the user to get the meal plan of
+    Returns:
+      - If the specified user exists, returns a JSON object with days of the week as keys and the assigned recipe objects as their values
+  */
   static async getMealPlan(userName) {
     let cursor;
     let mealPlanResponse = {
@@ -388,6 +464,10 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to retrieve a list of ingredients
+    Returns:
+      - An array containing all of the ingredients in the database collection 'ingredients_list'
+  */
   static async getIngredients() {
     let response = {};
     try {
@@ -399,6 +479,14 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function to update an existing recipe
+    Params:
+      - id: The ID of the recipe to update
+      - updateData: The new data to update the recipe with
+    Returns:
+      - Updates the recipe in the DB and returns a successful response
+      - Or throws an error if someting goes wrong
+  */
   static async updateRecipe(id, updateData) {
     try {
       const updateResponse = await recipesCollection.updateOne(
@@ -412,6 +500,11 @@ export default class RecipesDAO {
     }
   }
 
+  /* Function purely for testing.  Used to ensure that database connection is defined when running tests.
+      Initializes the database connection with a new MongoDB client, if the database has not already been initialized
+    Returns:
+      - A success message if the DB connection is successfully created or has previously been created
+  */
   static async initDB() {
     if (recipes) {
       return { success: true };

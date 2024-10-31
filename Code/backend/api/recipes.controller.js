@@ -1,6 +1,10 @@
 import RecipesDAO from "../dao/recipesDAO.js";
 
 export default class RecipesController {
+  /* API handler for logging in a user
+      Uses the provided userName and password to attempt a login.
+      If the provided userName-password pair matches the database information, the user is successfully logged in
+  */
   static async apiAuthLogin(req, res) {
     const filters = {
       userName: req.query.userName,
@@ -16,6 +20,10 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for signing up a new user
+      Uses the provided userName and password to attempt creating a new user.
+      If the new user is added to the database, the user has successfully been signed up
+  */
   static async apiAuthSignup(req, res) {
     if (req.body) {
       let data = {};
@@ -28,6 +36,11 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for getting a user's bookmarks.
+      Uses the provided userName to attempt retrieving the bookmarks.
+      Returns the resulting list of bookmarks from the database.
+      If a userName is not provided, a failure message is returned without querying the database
+  */
   static async apiGetBookmarks(req, res) {
     try {
       if (req.query.userName) {
@@ -45,6 +58,11 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for adding a recipe to a user's bookmarks.
+      Attempts to add the provided recipe to the specified user's profile (if they exist).
+      If it is added, returns a successful response from the database.
+      If no userName or recipe is provided, or if the user does not exist, a failure message is returned
+  */
   static async apiPostRecipeToProfile(req, res) {
 
     const { userName, recipe } = req.body;
@@ -68,6 +86,10 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for removing a recipe from a user's bookmarks
+      Attempts to remove the specified recipe from the specified user's profile (if they exist).
+      Returns a 200 status and successful response if it is removed, or a 500 status with an error message if not
+  */
   static async apiRemoveRecipeFromProfile(req, res) {
     const { userName, recipeId } = req.body;
     try {
@@ -78,6 +100,10 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for searching for a recipe by name
+      Creates a filter if a recipeName is specified, and attempts to find any recipes that match the filter
+      Returns a list of all recipes matching the filter
+  */
   static async apiGetRecipeByName(req, res) {
     let filters = {};
     //Checking the query to find the required results
@@ -95,6 +121,10 @@ export default class RecipesController {
     res.json(response);
   }
 
+  /* API handler for searching for a recipe by various filters.
+      Filters on specified Ingredients and Cuisine (also tracks if an email should be sent).
+      Returns a list of all recipes matching the filter.
+  */
   static async apiGetRecipes(req, res, next) {
     const recipesPerPage = req.query.recipesPerPage
       ? parseInt(req.query.recipesPerPage, 10)
@@ -126,7 +156,11 @@ export default class RecipesController {
     };
     res.json(response);
   }
-  //Function to get the cuisines
+
+  /* API handler for retrieving all cuisine types.
+      Retrieves all the types of cuisines from recipes in the database.
+      Returns a list of all distinct cuisine types
+  */
   static async apiGetRecipeCuisines(req, res, next) {
     try {
       let cuisines = await RecipesDAO.getCuisines();
@@ -137,6 +171,10 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for adding a recipe.
+      Expects all recipe information to be in req.body.
+      Attempts to add the recipe to the database, returning the successful response if it is added
+  */
   static async apiPostRecipe(req, res, next) {
     try {
       let response = await RecipesDAO.addRecipe(req.body);
@@ -147,6 +185,11 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for rating an existing recipe.
+      Expects all rating information to be in req.body.
+      Attempts to update the rating information about the specified recipe, returning the successful response if it is
+      Returns a 500 status and an error message if any errors occurr
+  */
   static async apiPatchRecipeRating(req, res, next) {
     try {
       let response = await RecipesDAO.rateRecipe(req.body);
@@ -157,6 +200,9 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for retrieving all ingredients.
+      Retrieves and returns a list of distinct ingredients from the database.
+  */
   static async apiGetIngredients(req, res, next) {
     try {
       let ingredients = await RecipesDAO.getIngredients();
@@ -166,6 +212,10 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for adding a recipe to a user's meal plan.
+      Attempts to add a specified recipe to the specified day of the specified user's meal plan.
+      Returns a successful response if the recipe is added, or a 500 status and error message if any errors occurred
+  */
   static async apiAddtoPlan(req, res, next) {
     try {
       let response = await RecipesDAO.addRecipeToMealPlan(
@@ -179,6 +229,9 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for retrieving a user's meal plan.
+      Attempts to retrieve the meal plan of a specified user, and returns it if the user exists.
+  */
   static async apiGetMealPlan(req, res, next) {
     try {
       let response = await RecipesDAO.getMealPlan(req.query.userName);
@@ -188,6 +241,9 @@ export default class RecipesController {
     }
   }
 
+  /* API handler for updating a recipe.
+      Attempts to update a specified recipe with the update data in req.body.
+  */
   static async apiUpdateRecipe(req, res, next) {
     try {
       const recipeId = req.params.id; // Get the recipe ID from the request params
@@ -211,6 +267,9 @@ export default class RecipesController {
     }
   }
   
+  /* For testing purposes only.  API handler for initializing the DB.
+      Ensures that the database connection and collections have been set up
+  */
   static async apiInitDB(req, res) {
     try {
       let response = await RecipesDAO.initDB();
