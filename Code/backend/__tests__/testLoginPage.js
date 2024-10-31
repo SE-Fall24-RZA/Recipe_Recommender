@@ -44,7 +44,7 @@ describe("Login API Tests", function () {
       const response = await request(app).post(baseURL + "/signup")
         .query({ userName: "Test", password: "admin" });
 
-      expect(response.status).not.to.eql(200);
+        expect(response.text.includes('"success":false')).true;
     });
     it("should sign up for new users", async function () {
       await request(app).get(baseURL + "/initDB")
