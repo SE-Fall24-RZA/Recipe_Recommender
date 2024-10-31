@@ -112,7 +112,7 @@ const AddToPlanModal = (props) => {
     return <Button onClick={() => setIsOpen(true)}>Add from Bookmarks</Button>;
   };
   const PlusButton = () => {
-    return (=
+    return (
       <Box
         as='button'
         onClick={() => setIsOpen(true)}
