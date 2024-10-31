@@ -114,7 +114,7 @@ const AddToPlanModal = (props) => {
                         spacing={5}
                         templateColumns='repeat(auto-fill, minmax(250px, 1fr))'
                         >
-                        {props.bookmarks.length !== 0 ? (
+                        {props.bookmarks && props.bookmarks.length !== 0 ? (
                             props.bookmarks.map((recipe) => (
                             <MiniRecipeCard
                                 key={recipe.id || recipe.TranslatedRecipeName} // Use a unique identifier as key
