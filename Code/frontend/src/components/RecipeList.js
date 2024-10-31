@@ -13,42 +13,58 @@ import {
   SimpleGrid,
   Text,
   Button,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
 import RecipeCard from "./RecipeCard";
 import Rating from "./Rating";
 import RateRecipe from "./RateRecipe";
+import recipeDB from "../apis/recipeDB"; // Assuming recipeDB is set up for API calls
 
-// component to handle all the recipes
 const RecipeList = ({ recipes, refresh, searchName }) => {
-  // mapping each recipe item to the Recipe container
-  // const renderedRecipes = recipes.map((recipe) => {
-  //   // return <Recipe key={recipe._id} recipe={recipe} />;
-  //   return(
-
-  //   )
-  // });
-  console.log(recipes);
   const [isOpen, setIsOpen] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState({});
-
   const [isChange, setIsChange] = useState(false);
-  var youtube_videos =
-    "https://www.youtube.com/results?search_query=" +
+  const [isEditing, setIsEditing] = useState(false);
+
+  const youtube_videos =
+    "https://www.youtube.com/results?search_query=how+to+make+" +
     currentRecipe["TranslatedRecipeName"];
+
   const handleViewRecipe = (data) => {
     setIsOpen(true);
     setCurrentRecipe(data);
+    setIsEditing(false);
+  };
+
+  const handleEditToggle = () => setIsEditing(!isEditing);
+
+  const handleInputChange = (field, value) => {
+    setCurrentRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      [field]: value,
+    }));
+  };
+
+  const handleSaveEdit = () => {
+    recipeDB
+      .put(`/recipes/${currentRecipe._id}`, currentRecipe)
+      .then(() => {
+        setIsChange(true);
+        setIsEditing(false);
+        refresh(searchName); // Reload updated recipes
+      })
+      .catch((err) => console.error("Error saving recipe:", err));
   };
 
   const onClose = () => {
-    setIsOpen(false);
     setIsOpen(false);
     setCurrentRecipe({});
     if (isChange) {
       refresh(searchName);
     }
   };
-  // all the recipes are being returned in the form of a table
+
   return (
     <>
       <Box
@@ -75,7 +91,6 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
                 key={recipe._id}
                 handler={handleViewRecipe}
                 recipe={recipe}
-                // You can also pass additional props to RecipeCard if needed
               />
             ))
           ) : (
@@ -85,86 +100,135 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
           )}
         </SimpleGrid>
       </Box>
+
       <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent data-testid='recipeModal'>
           <ModalHeader fontSize='xl' fontWeight='bold'>
-            {currentRecipe.TranslatedRecipeName || "Recipe Details"}
+            {isEditing ? (
+              <Input
+                value={currentRecipe.TranslatedRecipeName || ""}
+                onChange={(e) =>
+                  handleInputChange("TranslatedRecipeName", e.target.value)
+                }
+              />
+            ) : (
+              currentRecipe.TranslatedRecipeName || "Recipe Details"
+            )}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Flex align='center' mb={4}>
+            <Flex align='flex-start' mb={4}>
               <Avatar
                 size='2xl'
                 mr={4}
                 src={currentRecipe["image-url"]}
                 borderRadius='md'
-                boxShadow='lg'
               />
-              <Box>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Cooking Time: {currentRecipe.TotalTimeInMins} mins
+              <Box flex='1'>
+                <Text fontSize='lg' fontWeight='bold' mb={1}>
+                  Cooking Time:{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe.TotalTimeInMins || ""}
+                      onChange={(e) =>
+                        handleInputChange("TotalTimeInMins", e.target.value)
+                      }
+                    />
+                  ) : (
+                    `${currentRecipe.TotalTimeInMins} mins`
+                  )}
                 </Text>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Rating: {currentRecipe["Recipe-rating"]}
-                </Text>
-                <Text fontSize='lg' fontWeight='bold'>
-                  Diet Type: {currentRecipe["Diet-type"]}
-                </Text>
-              </Box>
-              <Flex>
-                <Avatar
-                  size='2xl'
-                  mr={2}
-                  mb={2}
-                  src={currentRecipe["image-url"]}
-                />
-                <Box mt={4}>
-                  <Text>
-                    <Text as={"b"}>Cooking Time: </Text>
-                    {currentRecipe.TotalTimeInMins} mins
+                <Flex align='center' mb={2}>
+                  <Text fontWeight='bold' mr={2}>
+                    Rating:
                   </Text>
-                  <Box
-                    display='flex'
-                    flexDirection='row'
-                    alignItems='center'
-                    maxHeight='30px'
-                    maxWidth={"30%"}
-                  >
-                    <Text as={"b"}>Rating: </Text>
-                    <Rating rating={currentRecipe["Recipe-rating"]}></Rating>
-                  </Box>
-                  <Text mb={2}>
-                    <Text as={"b"}>Diet Type: </Text>{" "}
-                    {currentRecipe["Diet-type"]}
-                  </Text>
-                </Box>
-              </Flex>
-              <Text fontSize='lg' mb={2}>
-                <Text as={"b"}>Instructions:</Text>{" "}
-                {currentRecipe["TranslatedInstructions"]}
-              </Text>
-              <Text color='blue.500' fontSize='lg'>
-                <Text color='black' as={"b"}>
-                  Video URL:
+                  <Rating rating={currentRecipe["Recipe-rating"]} />
+                </Flex>
+                <Text mb={2}>
+                  <Text as={"b"}>Diet Type:</Text>{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe["Diet-type"] || ""}
+                      onChange={(e) =>
+                        handleInputChange("Diet-type", e.target.value)
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Diet-type"]
+                  )}
                 </Text>
-                <Text>
+                <Text mb={2}>
+                  <Text as={"b"}>Cuisine:</Text>{" "}
+                  {isEditing ? (
+                    <Input
+                      value={currentRecipe["Cuisine"] || ""}
+                      onChange={(e) =>
+                        handleInputChange("Cuisine", e.target.value)
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Cuisine"]
+                  )}
+                </Text>
+                <Text mb={2}>
+                  <Text as={"b"}>Ingredients:</Text>{" "}
+                  {isEditing ? (
+                    <Textarea
+                      value={currentRecipe["Ingredients"]?.join(", ") || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "Ingredients",
+                          e.target.value.split(", ")
+                        )
+                      }
+                    />
+                  ) : (
+                    currentRecipe["Ingredients"]?.join(", ")
+                  )}
+                </Text>
+                <Text mb={2}>
+                  <Text as={"b"}>Instructions:</Text>{" "}
+                  {isEditing ? (
+                    <Textarea
+                      value={currentRecipe["TranslatedInstructions"] || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "TranslatedInstructions",
+                          e.target.value
+                        )
+                      }
+                    />
+                  ) : (
+                    currentRecipe["TranslatedInstructions"]
+                  )}
+                </Text>
+                <Text color='blue.500'>
                   <a
                     href={youtube_videos}
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    YouTube
+                    Watch on YouTube for more recipes
                   </a>
                 </Text>
-              </Text>
+              </Box>
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <RateRecipe
-              recipe={currentRecipe}
-              setChange={setIsChange}
-            ></RateRecipe>
+            <RateRecipe recipe={currentRecipe} setChange={setIsChange} />
+            {isEditing ? (
+              <>
+                <Button colorScheme='teal' mr={3} onClick={handleSaveEdit}>
+                  Save
+                </Button>
+                <Button onClick={handleEditToggle}>Cancel</Button>
+              </>
+            ) : (
+              <Button colorScheme='yellow' mr={3} onClick={handleEditToggle}>
+                Edit Recipe
+              </Button>
+            )}
             <Button colorScheme='teal' mr={3} onClick={onClose}>
               Close
             </Button>
@@ -174,4 +238,5 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
     </>
   );
 };
+
 export default RecipeList;

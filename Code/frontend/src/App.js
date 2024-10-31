@@ -45,16 +45,16 @@ class App extends Component {
   handleBookMarks = () => {
     this.setState({
       isProfileView: true,
-      isMealPlanView: false
+      isMealPlanView: false,
     });
   };
 
   handleMealPlan = () => {
     this.setState({
       isProfileView: false,
-      isMealPlanView: true
-    })
-  }
+      isMealPlanView: true,
+    });
+  };
 
   handleProfileView = () => {
     this.setState({
@@ -94,20 +94,24 @@ class App extends Component {
           password,
         },
       });
-      console.log(response.data);
+
       if (response.data.success) {
         this.setState({
           isLoggedIn: true,
           userData: response.data.user,
         });
         localStorage.setItem("userName", response.data.user.userName);
-        console.log(response.data.user);
         alert("Successfully logged in!");
       } else {
-        console.log("Credentials are incorrect");
+        const errorMessage = response.data.message || "An error occurred";
+        console.log(errorMessage);
+        alert(errorMessage); // Display specific message based on response
       }
     } catch (err) {
-      console.log(err);
+      console.log("An error occurred:", err);
+      alert(
+        "An error occurred while trying to log in. Please try again later."
+      );
     }
   };
 
@@ -227,10 +231,34 @@ class App extends Component {
     }
   };
 
+  editRecipe = async (recipeId, updatedData) => {
+    try {
+      const response = await recipeDB.put(
+        `/recipes/updateRecipe/${recipeId}`,
+        updatedData
+      );
+      if (response.status === 200) {
+        alert("Recipe updated successfully!");
+        // Refresh the recipes list or a specific recipe if needed
+        this.setState((prevState) => ({
+          recipeList: prevState.recipeList.map((recipe) =>
+            recipe._id === recipeId ? { ...recipe, ...updatedData } : recipe
+          ),
+          recipeByNameList: prevState.recipeByNameList.map((recipe) =>
+            recipe._id === recipeId ? { ...recipe, ...updatedData } : recipe
+          ),
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to update recipe:", error);
+      alert("Error updating the recipe. Please try again.");
+    }
+  };
+
   handleProfileView = () => {
     this.setState({
       isProfileView: false,
-      isMealPlanView: false
+      isMealPlanView: false,
     });
   };
 
@@ -257,9 +285,11 @@ class App extends Component {
                   // onRemove={this.handleRemoveBookmark}
                 />
               </UserProfile>
-            ) : (this.state.isMealPlanView ? (
-              <UserMealPlan handleProfileView={this.handleProfileView}
-                user={this.state.userData}></UserMealPlan>
+            ) : this.state.isMealPlanView ? (
+              <UserMealPlan
+                handleProfileView={this.handleProfileView}
+                user={this.state.userData}
+              ></UserMealPlan>
             ) : (
               <Tabs variant='soft-rounded' colorScheme='green'>
                 <TabList ml={10}>
@@ -274,7 +304,10 @@ class App extends Component {
                       {this.state.isLoading ? (
                         <RecipeLoading />
                       ) : (
-                        <RecipeList recipes={this.state.recipeList} />
+                        <RecipeList
+                          recipes={this.state.recipeList}
+                          editRecipe={this.editRecipe}
+                        />
                       )}
                     </Box>
                   </TabPanel>
@@ -295,7 +328,7 @@ class App extends Component {
                   </TabPanel>
                 </TabPanels>
               </Tabs>
-            ))}
+            )}
           </>
         ) : (
           <>

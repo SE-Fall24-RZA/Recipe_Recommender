@@ -26,7 +26,12 @@ router.route("/rateRecipe").patch(RecipesCtrl.apiPatchRecipeRating);
 
 router.route("/removeBookmark").post(RecipesCtrl.apiRemoveRecipeFromProfile);
 
-router.route("/mealPlan").put(RecipesCtrl.apiAddtoPlan).get(RecipesCtrl.apiGetMealPlan)
+router
+  .route("/mealPlan")
+  .put(RecipesCtrl.apiAddtoPlan)
+  .get(RecipesCtrl.apiGetMealPlan);
+
+router.route("/updateRecipe/:id").put(RecipesCtrl.apiUpdateRecipe);
 
 router.route("/initDB").get(RecipesCtrl.apiInitDB)
 

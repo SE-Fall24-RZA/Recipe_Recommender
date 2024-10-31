@@ -29,22 +29,21 @@ export default class RecipesDAO {
   }
 
   static async getUser({ filters = null } = {}) {
-    let query;
-    let cursor;
-    let user;
-    query = { userName: filters.userName };
-    if (filters) {
-      cursor = await users.findOne(query);
-      if (cursor.userName) {
-        if (cursor.password == filters.password) {
-          return { success: true, user: cursor };
-        } else {
-          return { success: false };
-        }
-      } else {
-        return { success: false };
-      }
+    if (!filters || !filters.userName)
+      return { success: false, message: "User does not exist" };
+
+    const user = await users.findOne({ userName: filters.userName });
+
+    if (!user) {
+      // User does not exist
+      return { success: false, message: "User does not exist" };
+    } else if (user.password !== filters.password) {
+      // Password is incorrect
+      return { success: false, message: "Incorrect password" };
     }
+
+    // Successful login
+    return { success: true, user };
   }
 
   static async addUser({ data = null } = {}) {
@@ -369,13 +368,15 @@ export default class RecipesDAO {
     try {
       cursor = await users.findOne({ userName: userName });
       if (cursor.userName) {
-        let plan = cursor['meal-plan'] ? cursor['meal-plan'] : {}
-        for(const day in plan) {
-          if(plan[day] != "") {
-            let recipe = await recipes.findOne({_id: new ObjectId(plan[day])})
-            let dayPlan = {}
-            dayPlan[day] = recipe
-            mealPlanResponse = {...mealPlanResponse, ...dayPlan}
+        let plan = cursor["meal-plan"] ? cursor["meal-plan"] : {};
+        for (const day in plan) {
+          if (plan[day] != "") {
+            let recipe = await recipes.findOne({
+              _id: new ObjectId(plan[day]),
+            });
+            let dayPlan = {};
+            dayPlan[day] = recipe;
+            mealPlanResponse = { ...mealPlanResponse, ...dayPlan };
           }
         }
         return mealPlanResponse
@@ -395,6 +396,19 @@ export default class RecipesDAO {
     } catch (e) {
       console.error(`Unable to get ingredients, ${e}`);
       return response;
+    }
+  }
+
+  static async updateRecipe(id, updateData) {
+    try {
+      const updateResponse = await recipesCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateData }
+      );
+      return updateResponse;
+    } catch (error) {
+      console.error(`Unable to update recipe: ${error}`);
+      throw error;
     }
   }
 

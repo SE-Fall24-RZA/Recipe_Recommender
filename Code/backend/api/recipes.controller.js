@@ -2,14 +2,20 @@ import RecipesDAO from "../dao/recipesDAO.js";
 
 export default class RecipesController {
   static async apiAuthLogin(req, res) {
-    let filters = {};
-    filters.userName = req.query.userName;
-    filters.password = req.query.password;
-    const { success, user } = await RecipesDAO.getUser({
-      filters,
-    });
-    res.json({ success, user });
+    const filters = {
+      userName: req.query.userName,
+      password: req.query.password,
+    };
+
+    const { success, user, message } = await RecipesDAO.getUser({ filters });
+
+    if (success) {
+      res.json({ success: true, user });
+    } else {
+      res.json({ success: false, message });
+    }
   }
+
   static async apiAuthSignup(req, res) {
     if (req.body) {
       let data = {};
@@ -182,6 +188,29 @@ export default class RecipesController {
     }
   }
 
+  static async apiUpdateRecipe(req, res, next) {
+    try {
+      const recipeId = req.params.id; // Get the recipe ID from the request params
+      const updateData = req.body; // Get the updated recipe data from the request body
+
+      // Call the DAO method to update the recipe
+      const updateResponse = await RecipesDAO.updateRecipe(
+        recipeId,
+        updateData
+      );
+
+      if (updateResponse.modifiedCount === 0) {
+        return res
+          .status(404)
+          .json({ error: "Recipe not found or no updates made" });
+      }
+
+      res.json({ status: "success", data: updateResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+  
   static async apiInitDB(req, res) {
     try {
       let response = await RecipesDAO.initDB();

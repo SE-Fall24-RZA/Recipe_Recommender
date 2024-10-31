@@ -1,239 +1,463 @@
 import React from "react";
-import {Box, HStack, Text, Input, InputGroup, InputRightElement, Button, VStack, Textarea, Badge, Alert, AlertIcon} from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Text,
+  Input,
+  InputGroup,
+  Button,
+  VStack,
+  Textarea,
+  Badge,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  CloseButton,
+  Select,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+  FormLabel,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+} from "@chakra-ui/react";
 import recipeDB from "../apis/recipeDB";
 
 const AddRecipe = () => {
+  const [recipe, setRecipe] = React.useState({
+    recipeName: "",
+    cookingTime: 0,
+    dietType: "",
+    recipeRating: 0,
+    cuisine: "",
+    recipeURL: "",
+    imageURL: "",
+    instructions: "",
+    ingredients: [],
+    restaurants: [],
+    locations: [],
+  });
 
-    const [recipe, setRecipe] = React.useState({
-        recipeName: "",
-        cookingTime: 0,
-        dietType: "",
-        recipeRating: 0,
-        cuisine: "",
-        recipeURL: "",
-        imageURL: "",
-        instructions: "",
-        ingredientCount: 0,
-        ingredients: [],
-        restaurants: [],
-        locations: []
-    });
+  const [alert, setAlert] = React.useState({
+    isOpen: false,
+    message: "",
+    status: "",
+  });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
-    const [ingredientCount, setIngredientCount] = React.useState(0);
-    const [imageFile, setImageFile] = React.useState(null);
+  const [ingredientInput, setIngredientInput] = React.useState(""); // State for ingredient input
+  const [restaurantInput, setRestaurantInput] = React.useState(""); // State for restaurant input
+  const [locationInput, setLocationInput] = React.useState(""); // State for location input
 
-    const addIngredient = () => {
-        const ingredient = document.getElementById("ingredients").value;
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                ingredients: [...prevValue.ingredients, ingredient],
-                ingredientCount: prevValue.ingredientCount + 1
-            }
-        })
-        document.getElementById("ingredients").value = "";
-    };
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setRecipe((prevValue) => ({ ...prevValue, [id]: value }));
+  };
 
-    const addRestaurant = () => {
-        const restaurant = document.getElementById("restaurant").value;
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                restaurants: [...prevValue.restaurants, restaurant]
-            }
-        })
-        document.getElementById("restaurant").value = "";
-    };
+  const handleRatingChange = (value) => {
+    setRecipe((prevValue) => ({ ...prevValue, recipeRating: value }));
+  };
 
-    const addLocation = () => {
-        const location = document.getElementById("location").value;
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                locations: [...prevValue.locations, location]
-            }
-        })
-        document.getElementById("location").value = "";
-    }; 
+  const addIngredient = () => {
+    if (ingredientInput) {
+      setRecipe((prevValue) => ({
+        ...prevValue,
+        ingredients: [...prevValue.ingredients, ingredientInput],
+      }));
+      setIngredientInput(""); // Clear the input after adding
+    }
+  };
 
+  const addRestaurant = () => {
+    if (restaurantInput) {
+      setRecipe((prevValue) => ({
+        ...prevValue,
+        restaurants: [...prevValue.restaurants, restaurantInput],
+      }));
+      setRestaurantInput(""); // Clear the input after adding
+    }
+  };
 
-    const handleChange = (event) => {
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                [event.target.id]: event.target.value
-            }
-        })
+  const addLocation = () => {
+    if (locationInput) {
+      setRecipe((prevValue) => ({
+        ...prevValue,
+        locations: [...prevValue.locations, locationInput],
+      }));
+      setLocationInput(""); // Clear the input after adding
+    }
+  };
+
+  const addRecipe = () => {
+    // Validate that the recipe name is not empty
+    if (!recipe.recipeName) {
+      onOpen(); // Open the alert dialog if the recipe name is empty
+      return;
     }
 
-    const addRecipe = () => {
-        const formData = new FormData();
-        formData.append("recipeData", JSON.stringify(recipe));
-        if (imageFile) formData.append("imageFile", imageFile);
-        recipeDB.post("/recipes/addRecipe", recipe)
-            .then(res => {
-                console.log(res.data);
-                // clear all fields
-                setRecipe({
-                    recipeName: "",
-                    cookingTime: 0,
-                    dietType: "",
-                    recipeRating: 0,
-                    cuisine: "",
-                    recipeURL: "",
-                    imageURL: "",
-                    instructions: "",
-                    ingredientCount: 0,
-                    ingredients: [],
-                    restaurants: [],
-                    locations: []
-                });
-                document.getElementById("recipeName").value = "";
-                document.getElementById("cookingTime").value = "";
-                document.getElementById("dietType").value = "";
-                document.getElementById("recipeRating").value = "";
-                document.getElementById("cuisine").value = "";
-                document.getElementById("recipeURL").value = "";
-                document.getElementById("imageURL").value = "";
-                document.getElementById("instructions").value = "";
+    recipeDB
+      .post("/recipes/addRecipe", recipe)
+      .then((res) => {
+        setAlert({ isOpen: true, message: "Recipe Added!", status: "success" });
+        // Clear all fields
+        setRecipe({
+          recipeName: "",
+          cookingTime: 0,
+          dietType: "",
+          recipeRating: 0,
+          cuisine: "",
+          recipeURL: "",
+          imageURL: "",
+          instructions: "",
+          ingredients: [],
+          restaurants: [],
+          locations: [],
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setAlert({
+          isOpen: true,
+          message: "Failed to add recipe. Please try again.",
+          status: "error",
+        });
+      });
+  };
 
-                // Alert user that recipe was added
-                <Alert status="success">
-                    <AlertIcon />
-                    Recipe Added!
-                </Alert>
-            })
-            .catch(err => console.log(err));
-    }
+  const removeIngredient = (ingredient) => {
+    setRecipe((prevValue) => ({
+      ...prevValue,
+      ingredients: prevValue.ingredients.filter((item) => item !== ingredient),
+    }));
+  };
 
-    const handleFileChange = (event) => {
-        setImageFile(event.target.files[0]);
-    };
+  const removeRestaurant = (restaurant) => {
+    setRecipe((prevValue) => ({
+      ...prevValue,
+      restaurants: prevValue.restaurants.filter((item) => item !== restaurant),
+    }));
+  };
 
-    const ingredientPrintHandler = () => {
-        const ingredientList = recipe.ingredients;
+  const removeLocation = (location) => {
+    setRecipe((prevValue) => ({
+      ...prevValue,
+      locations: prevValue.locations.filter((item) => item !== location),
+    }));
+  };
 
-        var ingredient_list = ingredientList.map((ingredient) =>
-            <Badge id={ingredient} m={1} _hover={{cursor: "pointer"}} onClick={ingredientRemoveHandler} colorScheme="green">
+  const cuisineOptions = [
+    "Mexican",
+    "South Indian",
+    "Chinese",
+    "Thai",
+    "Japanese",
+    "Gujarati",
+    "North Indian",
+    "Lebanese",
+    "Mediterranean",
+    "Middle East",
+    "Italian",
+    "Korean",
+    "Continental",
+    "Greek",
+    "Latin",
+    "American",
+    "Other",
+    "Swedish",
+    "Latvian",
+    "Spanish",
+    "Scottish",
+    "British",
+    "Canadian",
+    "Russian",
+    "Jewish",
+    "Polish",
+    "German",
+    "French",
+    "Hawaiian",
+    "Brazilian",
+    "Peruvian",
+    "Cuban",
+    "Tibetan",
+    "Salvadorian",
+    "Egyptian",
+    "Belgian",
+    "Irish",
+    "Welsh",
+    "Mormon",
+    "Cajun",
+    "Portuguese",
+    "Turkish",
+    "Haitian",
+    "Tahitian",
+    "Kenyan",
+    "Algerian",
+    "Nigerian",
+    "Libyan",
+  ];
+
+  const dietOptions = ["No Restrictions", "Vegetarian", "Vegan", "Pescatarian"];
+
+  return (
+    <Box
+      borderRadius={"lg"}
+      border='2px'
+      boxShadow={"lg"}
+      borderColor={"gray.100"}
+      fontFamily='Arial, sans-serif'
+      m={"auto"}
+      marginTop={10}
+      width={"50%"}
+      p={5}
+    >
+      <Text fontSize={"3xl"} textAlign={"center"} fontWeight={"bold"}>
+        Add New Recipe
+      </Text>
+
+      {alert.isOpen && (
+        <Alert status={alert.status} mb={4}>
+          <AlertIcon />
+          <AlertTitle>{alert.message}</AlertTitle>
+          <CloseButton
+            position='absolute'
+            right='8px'
+            top='8px'
+            onClick={() => setAlert({ ...alert, isOpen: false })}
+          />
+        </Alert>
+      )}
+
+      <VStack spacing={"5"} alignItems={"flex-start"}>
+        <HStack spacing={"5"}>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='recipeName'>Recipe Name</FormLabel>
+            <Input
+              type={"text"}
+              id='recipeName'
+              onChange={handleChange}
+              value={recipe.recipeName}
+            />
+          </Box>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='cookingTime'>Cooking Time (mins)</FormLabel>
+            <Input
+              type={"number"}
+              id='cookingTime'
+              onChange={handleChange}
+              value={recipe.cookingTime}
+            />
+          </Box>
+        </HStack>
+        <HStack spacing={"5"}>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='dietType'>Diet Type</FormLabel>
+            <Select
+              id='dietType'
+              onChange={handleChange}
+              value={recipe.dietType}
+            >
+              <option value=''>Select Diet Type</option>
+              {dietOptions.map((dietType, index) => (
+                <option key={index} value={dietType}>
+                  {dietType}
+                </option>
+              ))}
+            </Select>
+          </Box>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='recipeRating'>Recipe Rating</FormLabel>
+            <Slider
+              id='recipeRating'
+              value={recipe.recipeRating}
+              min={0}
+              max={5}
+              step={0.5}
+              onChange={handleRatingChange}
+            >
+              <SliderTrack>
+                <SliderFilledTrack />
+              </SliderTrack>
+              <SliderThumb boxSize={6} />
+            </Slider>
+            <Text>Rating: {recipe.recipeRating} / 5</Text>
+          </Box>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='cuisine'>Cuisine</FormLabel>
+            <Select id='cuisine' onChange={handleChange} value={recipe.cuisine}>
+              <option value=''>Select Cuisine</option>
+              {cuisineOptions.map((cuisine, index) => (
+                <option key={index} value={cuisine}>
+                  {cuisine}
+                </option>
+              ))}
+            </Select>
+          </Box>
+        </HStack>
+        <HStack spacing={"5"}>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='recipeURL'>Recipe URL</FormLabel>
+            <Input
+              type={"URL"}
+              id='recipeURL'
+              onChange={handleChange}
+              value={recipe.recipeURL}
+            />
+          </Box>
+          <Box width={"100%"}>
+            <FormLabel htmlFor='imageURL'>Image URL</FormLabel>
+            <Input
+              type={"URL"}
+              id='imageURL'
+              onChange={handleChange}
+              value={recipe.imageURL}
+            />
+          </Box>
+        </HStack>
+
+        {/* Ingredients Input Handler */}
+        <HStack spacing={2} width={"100%"}>
+          <InputGroup variant={"filled"} width={"100%"}>
+            <FormLabel htmlFor='ingredientInput' mb={0}>
+              Ingredients
+            </FormLabel>
+            <Input
+              type={"text"}
+              id='ingredientInput'
+              value={ingredientInput}
+              onChange={(e) => setIngredientInput(e.target.value)}
+              placeholder='Enter an ingredient'
+            />
+            <Button onClick={addIngredient} colorScheme='green'>
+              Add Ingredient
+            </Button>
+          </InputGroup>
+          <HStack spacing={2}>
+            {recipe.ingredients.map((ingredient) => (
+              <Badge
+                key={ingredient}
+                m={1}
+                _hover={{ cursor: "pointer" }}
+                onClick={() => removeIngredient(ingredient)}
+                colorScheme='green'
+              >
                 {ingredient}
-            </Badge>
-        );
+              </Badge>
+            ))}
+          </HStack>
+        </HStack>
 
-        return  <ul class="IngredientList">{ingredient_list}</ul>;
-    }
-
-    const ingredientRemoveHandler = (event) => {
-        const ingredient = event.target.id;
-        const ingredientList = recipe.ingredients;
-        const index = ingredientList.indexOf(ingredient);
-        if (index > -1) {
-            ingredientList.splice(index, 1);
-        }
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                ingredients: ingredientList
-            }
-        })
-    }
-
-    const restaurantPrintHandler = () => {
-        const restaurantList = recipe.restaurants;
-
-        const restaurant_list = restaurantList.map((restaurant) =>
-            <Badge id={restaurant} m={1} _hover={{cursor: "pointer"}} onClick={restaurantRemoveHandler} colorScheme="green">
+        {/* Restaurants Input Handler */}
+        <HStack spacing={2} width={"100%"}>
+          <InputGroup variant={"filled"} width={"100%"}>
+            <FormLabel htmlFor='restaurantInput' mb={0}>
+              Restaurants
+            </FormLabel>
+            <Input
+              type={"text"}
+              id='restaurantInput'
+              value={restaurantInput}
+              onChange={(e) => setRestaurantInput(e.target.value)}
+              placeholder='Enter a restaurant'
+            />
+            <Button onClick={addRestaurant} colorScheme='green'>
+              Add Restaurant
+            </Button>
+          </InputGroup>
+          <HStack spacing={2}>
+            {recipe.restaurants.map((restaurant) => (
+              <Badge
+                key={restaurant}
+                m={1}
+                _hover={{ cursor: "pointer" }}
+                onClick={() => removeRestaurant(restaurant)}
+                colorScheme='green'
+              >
                 {restaurant}
-            </Badge>
-        );
+              </Badge>
+            ))}
+          </HStack>
+        </HStack>
 
-        return <ul class="RestaurantList">{restaurant_list}</ul>;
-    }
-
-    const restaurantRemoveHandler = (event) => {
-        const restaurant = event.target.id;
-        const restaurantList = recipe.restaurants;
-        const index = restaurantList.indexOf(restaurant);
-        if (index > -1) {
-            restaurantList.splice(index, 1);
-        }
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                restaurants: restaurantList
-            }
-        })
-    }
-
-    const locationPrintHandler = () => {
-        const locationList = recipe.locations;
-
-        const location_list = locationList.map((location) =>
-            <Badge id={location} m={1} _hover={{cursor: "pointer"}} onClick={locationRemoveHandler} colorScheme="green">
+        {/* Locations Input Handler */}
+        <HStack spacing={2} width={"100%"}>
+          <InputGroup variant={"filled"} width={"100%"}>
+            <FormLabel htmlFor='locationInput' mb={0}>
+              Locations
+            </FormLabel>
+            <Input
+              type={"text"}
+              id='locationInput'
+              value={locationInput}
+              onChange={(e) => setLocationInput(e.target.value)}
+              placeholder='Enter a location'
+            />
+            <Button onClick={addLocation} colorScheme='green'>
+              Add Location
+            </Button>
+          </InputGroup>
+          <HStack spacing={2}>
+            {recipe.locations.map((location) => (
+              <Badge
+                key={location}
+                m={1}
+                _hover={{ cursor: "pointer" }}
+                onClick={() => removeLocation(location)}
+                colorScheme='green'
+              >
                 {location}
-            </Badge>
-        );
-    }
+              </Badge>
+            ))}
+          </HStack>
+        </HStack>
 
-    const locationRemoveHandler = (event) => {
-        const location = event.target.id;
-        const locationList = recipe.locations;
-        const index = locationList.indexOf(location);
-        if (index > -1) {
-            locationList.splice(index, 1);
-        }
-        setRecipe(prevValue => {
-            return {
-                ...prevValue,
-                locations: locationList
-            }
-        })
-    }
+        <Box width={"100%"}>
+          <FormLabel htmlFor='instructions'>Instructions</FormLabel>
+          <Textarea
+            id='instructions'
+            onChange={handleChange}
+            value={recipe.instructions}
+          />
+        </Box>
+        <Button onClick={addRecipe} colorScheme='blue'>
+          Add Recipe
+        </Button>
+      </VStack>
 
-    return (
-        <>
-            <Box borderRadius={"lg"} border="2px" boxShadow={"lg"} borderColor={"gray.100"} fontFamily="regular" m={'auto'} marginTop={10} width={"50%"} p={5}>
-                <Text fontSize={"3xl"} textAlign={'center'} fontWeight={"bold"}>Add New Recipe</Text>
-                <VStack spacing={'5'} alignItems={"flex-center"} >
-                    <HStack spacing={'5'} alignItems={"flex-start"} >
-                        <Input type={"text"} id="recipeName" onChange={handleChange} placeholder={"Recipe Name"} />
-                        <Input type={"number"} id="cookingTime" onChange={handleChange} placeholder={"Cooking Time in Mins"} />
-                    </HStack>
-                    <HStack spacing={'5'} alignItems={"flex-start"} >
-                        <Input type={"text"} id="dietType" onChange={handleChange} placeholder={"Diet Type"} />
-                        <Input type={"number"} id="recipeRating" onChange={handleChange} placeholder={"Recipe Rating"} />
-                        <Input type={"text"} id="cuisine" onChange={handleChange} placeholder={"Cuisine"} />
-                    </HStack>
-                    <HStack spacing={'5'} alignItems={"flex-start"} >
-                        <Input type={"URL"} id="recipeURL" onChange={handleChange} placeholder={"Recipe URL"} />
-                       <Input type="file"  onChange={handleFileChange} placeholder="Upload Image" />
-                    </HStack>
-                    <HStack direction="row">
-                        <InputGroup variant={"filled"}>
-                        <Input type={"text"} marginEnd={"5px"} id="ingredients" placeholder={"Ingredients"} width={"45%"}/>
-                        <Button mr={10} width={"5%"} onClick={addIngredient} id="addIngredientButton" _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add</Button>
-                        </InputGroup>
-                        {ingredientPrintHandler()}
-                    </HStack>
-                    <HStack spacing={'5'} alignItems={"flex-start"} >
-                        <InputGroup variant={"filled"}>
-                            <Input type="text" marginEnd={"5px"} id="restaurant" placeholder={"Restaurannt"} width="45%"/>
-                            <Button id="restaurantButton" width="5%" mr={10} onClick={addRestaurant} _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add</Button>
-                            {restaurantPrintHandler()}
-                        </InputGroup>  
-                    </HStack> 
-                    <HStack spacing={'5'} alignItems={"flex-start"} >
-                        <InputGroup variant={"filled"}>
-                            <Input type="text" marginEnd={"5px"} id="location" placeholder={"Restaurant-Location"} width="45%" />
-                            <Button id="locationButton" width="5%" mr={10} onClick={addLocation} _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add</Button>
-                            {locationPrintHandler()}
-                        </InputGroup>  
-                    </HStack> 
-                    <Textarea onChange = {handleChange} id="instructions" placeholder={"Write Cooking Instructions Here"} />
-                    <Button width={"30%"} m={'auto'} id="addRecipeButton" onClick={addRecipe} _hover={{ bg: 'black', color: "gray.100" }} color={"gray.600"} bg={"green.300"}>Add Recipe</Button>
-                </VStack>
-            </Box>
-        </>
-    )
+      {/* Alert Dialog for Empty Recipe Name */}
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Empty Recipe Name
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Please enter a recipe name before adding the recipe.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Close
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </Box>
+  );
+
 };
 
 export default AddRecipe;
