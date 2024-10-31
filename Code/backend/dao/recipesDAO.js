@@ -206,36 +206,40 @@ export default class RecipesDAO {
 
   // Function to add a recipe
   static async addRecipe(recipe) {
-    let inputRecipe = {};
-    inputRecipe["TranslatedRecipeName"] = recipe["recipeName"];
-    inputRecipe["TotalTimeInMins"] = recipe["cookingTime"];
-    inputRecipe["Diet-type"] = recipe["dietType"];
-    inputRecipe["Recipe-rating"] = recipe["recipeRating"];
-    inputRecipe["Times-rated"] = 1;
-    inputRecipe["Cuisine"] = recipe["cuisine"];
-    inputRecipe["image-url"] = recipe["imageURL"];
-    inputRecipe["URL"] = recipe["recipeURL"];
-    inputRecipe["TranslatedInstructions"] = recipe["instructions"];
-    var ingredients = "";
-    for (var i = 0; i < recipe["ingredients"].length; i++) {
-      ingredients += recipe["ingredients"][i] + "%";
-    }
-    inputRecipe["Cleaned-Ingredients"] = ingredients;
-    var restaurants = "";
-    var locations = "";
-    for (var j = 0; j < recipe["restaurants"].length; j++) {
-      restaurants += recipe["restaurants"][j] + "%";
-      locations += recipe["locations"][j] + "%";
-    }
-    inputRecipe["Restaurant"] = restaurants;
-    inputRecipe["Restaurant-Location"] = locations;
     let response = {};
     try {
+      if(!recipe["recipeName"]) {
+        throw new Error("recipeName must be provided")
+      }
+      let inputRecipe = {};
+      inputRecipe["TranslatedRecipeName"] = recipe["recipeName"];
+      inputRecipe["TotalTimeInMins"] = recipe["cookingTime"];
+      inputRecipe["Diet-type"] = recipe["dietType"];
+      inputRecipe["Recipe-rating"] = recipe["recipeRating"];
+      inputRecipe["Times-rated"] = 1;
+      inputRecipe["Cuisine"] = recipe["cuisine"];
+      inputRecipe["image-url"] = recipe["imageURL"];
+      inputRecipe["URL"] = recipe["recipeURL"];
+      inputRecipe["TranslatedInstructions"] = recipe["instructions"];
+      var ingredients = "";
+      for (var i = 0; i < recipe["ingredients"].length; i++) {
+        ingredients += recipe["ingredients"][i] + "%";
+      }
+      inputRecipe["Cleaned-Ingredients"] = ingredients;
+      var restaurants = "";
+      var locations = "";
+      for (var j = 0; j < recipe["restaurants"].length; j++) {
+        restaurants += recipe["restaurants"][j] + "%";
+        locations += recipe["locations"][j] + "%";
+      }
+      inputRecipe["Restaurant"] = restaurants;
+      inputRecipe["Restaurant-Location"] = locations;
+    
       response = await recipes.insertOne(inputRecipe);
       return response;
     } catch (e) {
       console.error(`Unable to add recipe, ${e}`);
-      return response;
+      throw e
     }
   }
 
