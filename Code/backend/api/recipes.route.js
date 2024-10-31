@@ -33,4 +33,6 @@ router
 
 router.route("/updateRecipe/:id").put(RecipesCtrl.apiUpdateRecipe);
 
+router.route("/initDB").get(RecipesCtrl.apiInitDB)
+
 export default router;

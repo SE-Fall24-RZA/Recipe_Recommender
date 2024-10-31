@@ -457,6 +457,7 @@ const AddRecipe = () => {
       </AlertDialog>
     </Box>
   );
+
 };
 
 export default AddRecipe;

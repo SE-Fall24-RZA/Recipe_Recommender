@@ -87,12 +87,14 @@ const MiniRecipeCard = (props) => {
 };
 
 const AddToPlanModal = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [day, setDay] = useState(props.day);
-  const [recipeToAdd, setRecipeToAdd] = useState({});
-  const onClose = () => {
-    setIsOpen(false);
-  };
+    const [isOpen, setIsOpen] = useState(false)
+    const [day, setDay] = useState(props.day)
+    const [recipeToAdd, setRecipeToAdd] = useState(null)
+    const onClose = () => {
+        setRecipeToAdd(null)
+        setDay(props.day)
+        setIsOpen(false)
+    }
 
   const addToMealPlan = () => {
     const requestBody = {
@@ -110,7 +112,7 @@ const AddToPlanModal = (props) => {
     return <Button onClick={() => setIsOpen(true)}>Add from Bookmarks</Button>;
   };
   const PlusButton = () => {
-    return (
+    return (=
       <Box
         as='button'
         onClick={() => setIsOpen(true)}
@@ -138,7 +140,7 @@ const AddToPlanModal = (props) => {
               spacing={5}
               templateColumns='repeat(auto-fill, minmax(250px, 1fr))'
             >
-              {props.bookmarks.length !== 0 ? (
+              {props.bookmarks && props.bookmarks.length !== 0 ? (
                 props.bookmarks.map((recipe) => (
                   <MiniRecipeCard
                     key={recipe.id || recipe.TranslatedRecipeName} // Use a unique identifier as key
