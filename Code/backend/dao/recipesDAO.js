@@ -54,7 +54,7 @@ export default class RecipesDAO {
     query = { userName: data.userName };
     if (data) {
       cursor = await users.findOne(query);
-      if (cursor !== null) {
+      if (cursor !== null || !data.password) {
         return { success: false };
       } else {
         const res = await users.insertOne(data);

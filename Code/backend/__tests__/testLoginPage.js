@@ -58,7 +58,7 @@ describe("Login API Tests", function () {
       const response = await request(app).post(baseURL + "/signup")
         .query({ userName: "Test3" });
 
-      expect(response.status).not.to.eql(200);
+      expect(response.text.includes('"success":false')).true;
     });
   });
 });
