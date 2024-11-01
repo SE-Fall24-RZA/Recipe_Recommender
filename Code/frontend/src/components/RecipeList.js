@@ -33,7 +33,10 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
 
   const handleViewRecipe = (data) => {
     setIsOpen(true);
-    setCurrentRecipe(data);
+    setCurrentRecipe({
+      ...data,
+      Ingredients: data["Cleaned-Ingredients"].split("%"),
+    });
     setIsEditing(false);
   };
 
