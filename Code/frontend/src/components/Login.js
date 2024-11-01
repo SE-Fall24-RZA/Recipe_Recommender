@@ -76,7 +76,6 @@ const Login = (props) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{isLoginMode ? "LOG IN" : "SIGN UP"}</ModalHeader>
-          <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>User Name</FormLabel>
