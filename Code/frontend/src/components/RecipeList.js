@@ -55,7 +55,7 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
       .then(() => {
         setIsChange(true);
         setIsEditing(false);
-        refresh(searchName); // Reload updated recipes
+        // refresh(searchName); // Reload updated recipes
       })
       .catch((err) => console.error("Error saving recipe:", err));
   };
@@ -63,9 +63,9 @@ const RecipeList = ({ recipes, refresh, searchName }) => {
   const onClose = () => {
     setIsOpen(false);
     setCurrentRecipe({});
-    if (isChange) {
-      refresh(searchName);
-    }
+    // if (isChange) {
+    //   refresh(searchName);
+    // }
   };
 
   return (

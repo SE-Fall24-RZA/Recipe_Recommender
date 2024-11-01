@@ -300,15 +300,22 @@ export default class RecipesDAO {
       .find({ _id: new ObjectId(ratingBody.recipeID) })
       .collation({ locale: "en", strength: 2 })
       .toArray();
+
     let recipe = r[0];
-    let timesRated = recipe["Times-rated"] ? Number(recipe["Times-rated"]) : 1;
-    let newRating = Number(recipe["Recipe-rating"]) * timesRated;
-    newRating += ratingBody.rating;
+    let timesRated = recipe["Times-rated"] ? Number(recipe["Times-rated"]) : 0;
+    let currentRating = Number(recipe["Recipe-rating"]) || 0;
+    let newRating =
+      (currentRating * timesRated + ratingBody.rating) / timesRated;
+    newRating = Math.min(Math.max(newRating, 0), 5);
     timesRated++;
-    newRating /= timesRated;
     await recipes.updateOne(
       { _id: new ObjectId(ratingBody.recipeID) },
-      { $set: { "Times-rated": timesRated, "Recipe-rating": newRating } }
+      {
+        $set: {
+          "Times-rated": timesRated,
+          "Recipe-rating": parseFloat(newRating.toFixed(2)),
+        },
+      }
     );
   }
 
@@ -322,7 +329,6 @@ export default class RecipesDAO {
   */
   static async addRecipeToProfile(userName, recipe) {
     try {
-
       // First, check if the recipe already exists in the user's bookmarks
       const user = await users.findOne({ userName: userName });
       if (!user) {
@@ -344,7 +350,6 @@ export default class RecipesDAO {
         { userName: userName },
         { $addToSet: { bookmarks: recipe } }
       );
-
 
       if (updateResult.modifiedCount === 0) {
         console.log("No changes made to bookmarks");

@@ -1,0 +1,15 @@
+| **Test**                                        | **Expected Output**                                                                                          | **Actual Output**                          |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| **MiniRecipeCard Renders with Recipe Data**     | Recipe name, cooking time, and diet type are displayed correctly.                                            | Pass                                       |
+| **Background Color Change on Selection**        | `bgColor` is set to "green.100" when the card is selected.                                                   | Pass                                       |
+| **MiniRecipeCard Click Triggers setRecipe**     | `setRecipe` is called, updating the selected recipe ID, and logs the ID in the console.                      | Pass                                       |
+| **Rating Component Displays Correct Value**     | `Rating` component displays the correct rating from `props.recipe["Recipe-rating"]`.                         | Pass                                       |
+| **Modal Opens on Button Click**                 | Modal with `data-testid='addToPlanModal'` appears on button click.                                           | Pass                                       |
+| **TextButton Renders when props.text is True**  | "Add from Bookmarks" button is displayed when `props.text` is `true`.                                        | Pass                                       |
+| **PlusButton Renders when props.text is False** | A `Box` with a `+` icon renders when `props.text` is `false`.                                                | Pass                                       |
+| **Bookmarks Render in Modal if Available**      | Each recipe in `props.bookmarks` is displayed as a `MiniRecipeCard` in the modal.                            | Pass                                       |
+| **No Bookmarks Message When None Available**    | Displays "No bookmarks available" message with `data-testid='noResponseText'` if `props.bookmarks` is empty. | Pass                                       |
+| **Select a Day from Dropdown**                  | Selected day is stored in `day` state and displayed in dropdown.                                             | Pass                                       |
+| **Add Recipe to Meal Plan on Button Click**     | `recipeDB.put` is called, and modal closes.                                                                  | Fails when Day/Meal either is not selected |
+| **Modal Close Resets State**                    | Closing modal resets `recipeToAdd` to null and `day` to default.                                             | Pass                                       |
+| **API Call on Adding to Meal Plan**             | `recipeDB.put` is called with request body including `userName`, `recipeID`, and `weekDay`.                  | Pass                                       |
