@@ -21,4 +21,4 @@ jobs:
       - name: Code Formatter
         run: |
             cd Code/backend
-            npm run format:fix
+            npm run format
