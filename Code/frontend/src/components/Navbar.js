@@ -18,8 +18,7 @@ import {
   Heading,
   Image,
 } from "@chakra-ui/react";
-import { useState } from "react"; // Import useState for toggling
-import Chatbot from "./chatbot"; // Import Chatbot component
+
 
 const NavLink = (props) => {
   const { children } = props;
@@ -44,7 +43,7 @@ const NavLink = (props) => {
 export default function Nav(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // State for chatbot visibility
+ 
 
   const handleBookMarks = () => {
     props.handleBookMarks();
@@ -59,9 +58,6 @@ export default function Nav(props) {
     props.handleLogout();
   };
 
-  const handleChatbotToggle = () => {
-    setIsChatbotVisible(!isChatbotVisible);
-  };
 
   return (
     <Box color={"black"} mb={5} bg={"green.300"} px={4}>
@@ -103,19 +99,10 @@ export default function Nav(props) {
                 Login to see your favorite recipes!
               </Text>
             )}
-            <Button size="sm" colorScheme="blue" onClick={handleChatbotToggle}>
-              Chat with Us
-            </Button>
+           
           </Stack>
         </Flex>
       </Flex>
-
-      {/* Conditionally render the Chatbot component */}
-      {isChatbotVisible && (
-        <Box mt={6}>
-          <Chatbot />
-        </Box>
-      )}
     </Box>
   );
 }
