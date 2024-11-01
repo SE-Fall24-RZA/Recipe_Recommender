@@ -13,7 +13,7 @@
 [![GitHub issues open](https://img.shields.io/github/issues/SE-Fall24-RZA/Recipe_Recommender)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/issues)
 [![GitHub stars](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)
 ![Github closes issues](https://img.shields.io/github/issues-closed-raw/SE-Fall24-RZA/Recipe_Recommender)
-[![Coverage](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/backendCoverage.yml/coverage/badge-statements.svg)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/backendCoverage.yml)
+[![codecov](https://codecov.io/gh/SE-Fall24-RZA/Recipe_Recommender/graph/badge.svg?token=mBl30Hpkf0)](https://codecov.io/gh/SE-Fall24-RZA/Recipe_Recommender)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ![GitHub contributors](https://img.shields.io/github/contributors/SE-Fall24-RZA/Recipe_Recommender)
 [![Code Formatter](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/codeFormatter.yml/badge.svg)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/codeFormatter.yml)
