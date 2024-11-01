@@ -101,6 +101,9 @@ export default function Nav(props) {
                 Login to see your favorite recipes!
               </Text>
             )}
+       </Stack>
+        </Flex>
+      </Flex>
     </Box>
   );
 }
