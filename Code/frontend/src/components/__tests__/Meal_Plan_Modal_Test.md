@@ -13,3 +13,4 @@
 | **Add Recipe to Meal Plan on Button Click**     | `recipeDB.put` is called, and modal closes.                                                                  | Fails when Day/Meal either is not selected |
 | **Modal Close Resets State**                    | Closing modal resets `recipeToAdd` to null and `day` to default.                                             | Pass                                       |
 | **API Call on Adding to Meal Plan**             | `recipeDB.put` is called with request body including `userName`, `recipeID`, and `weekDay`.                  | Pass                                       |
+| **Add multiple meals in a day**                 | Can add multiple meals in a day                                                                              | Fail, can only add one meal in a day       |
