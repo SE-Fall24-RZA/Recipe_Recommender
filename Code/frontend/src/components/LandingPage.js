@@ -10,6 +10,7 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
+import Chatbot from './chatbot';
 
 const LandingPage = ({ onGetStarted }) => {
   const [isChatbotVisible, setChatbotVisible] = useState(false);
@@ -134,7 +135,7 @@ const LandingPage = ({ onGetStarted }) => {
             <Chatbot />
           </Box>
         )}
-        </Grid>
+      
       </VStack>
     </Box>
   );
