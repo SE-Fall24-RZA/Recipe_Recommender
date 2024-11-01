@@ -1,6 +1,10 @@
 name: Running Backend Tests With Coverage
 
 on: 
+  push:
+    branches:
+      - group31-fall24
+      - master
   pull_request:
     branches:
       - group31-fall24
