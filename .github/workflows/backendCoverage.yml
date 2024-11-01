@@ -34,7 +34,7 @@ jobs:
       run: |
           cd Code/backend
           npm run test-cov
-    - name: Generate Coverage Badges
-      run: |
-          cd Code/backend
-          npm run test-cov-badges
+    - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
