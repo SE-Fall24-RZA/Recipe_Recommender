@@ -101,18 +101,6 @@ export default function Nav(props) {
                 Login to see your favorite recipes!
               </Text>
             )}
-            <Button size="sm" colorScheme="blue" onClick={handleChatbotToggle}>
-              Chat with Us
-            </Button>
-           
-          </Stack>
-        </Flex>
-      </Flex>
-      {isChatbotVisible && (
-        <Box mt={6}>
-          <Chatbot />
-        </Box>
-      )}
     </Box>
   );
 }
