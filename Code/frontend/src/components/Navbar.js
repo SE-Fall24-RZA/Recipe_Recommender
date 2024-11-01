@@ -18,17 +18,15 @@ import {
   Heading,
   Image,
 } from "@chakra-ui/react";
-
-// interface Props {
-//   children: React.ReactNode
-// }
+import { useState } from "react"; // Import useState for toggling
+import Chatbot from "./chatbot"; // Import Chatbot component
 
 const NavLink = (props) => {
   const { children } = props;
 
   return (
     <Box
-      as='a'
+      as="a"
       px={2}
       py={1}
       rounded={"md"}
@@ -46,22 +44,30 @@ const NavLink = (props) => {
 export default function Nav(props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // State for chatbot visibility
+
   const handleBookMarks = () => {
     props.handleBookMarks();
   };
+
   const handleMealPlan = () => {
     props.handleMealPlan();
   };
+
   const handleLogout = () => {
     console.log("logged out");
     props.handleLogout();
+  };
+
+  const handleChatbotToggle = () => {
+    setIsChatbotVisible(!isChatbotVisible);
   };
 
   return (
     <Box color={"black"} mb={5} bg={"green.300"} px={4}>
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <Box pl={10}>
-          <Image src='./public/images/logo_1by1.png' alt='Saveurs Sélection' />
+          <Image src="./public/images/logo_1by1.png" alt="Saveurs Sélection" />
           <Heading size={"md"}>Saveurs Sélection</Heading>
         </Box>
 
@@ -76,7 +82,7 @@ export default function Nav(props) {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Text fontWeight='bold' color='black'>
+                  <Text fontWeight="bold" color="black">
                     Welcome, {props.user.userName}
                   </Text>
                 </MenuButton>
@@ -93,13 +99,23 @@ export default function Nav(props) {
                 </MenuList>
               </Menu>
             ) : (
-              <Text fontWeight='normal' color='black'>
+              <Text fontWeight="normal" color="black">
                 Login to see your favorite recipes!
               </Text>
             )}
+            <Button size="sm" colorScheme="blue" onClick={handleChatbotToggle}>
+              Chat with Us
+            </Button>
           </Stack>
         </Flex>
       </Flex>
+
+      {/* Conditionally render the Chatbot component */}
+      {isChatbotVisible && (
+        <Box mt={6}>
+          <Chatbot />
+        </Box>
+      )}
     </Box>
   );
 }
