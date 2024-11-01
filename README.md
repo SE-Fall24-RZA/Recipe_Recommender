@@ -44,12 +44,11 @@ We've added <b> numerous entertaining new features and fixes to enhance user-fri
 
 ## Feature additions: Enhancements, Upgrades and BugFixes:
 Presenting our latest additions: Here's a comprehensive list of all our new features, enhancements, and upgrades! <br>
-1. User Profile: In our application, users can now establish a profile with a unique username and password, allowing seamless login and logout. This facilitates personalized experiences and customized access to preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes now inhabit a designated area, simplifying the management of all your belongings in one organized space.
-2. Bookmarks: Picture this scenario: You're commuting, scrolling through intriguing recipes in our app. Thanks to a cutting-edge feature, you can now save them instantly. The introduction of dedicated user profiles elevates your experience. Simply sign up, log in, and curate your favorite recipes in the "bookmarks" section under your profile. When the time comes to cook, everything awaits you – seamlessly organized and easily accessible.
-3. Search for recipes by name: Previously limited to ingredient-based searches only, our system now boasts an exciting upgrade. You can now search for recipes by name! Ever craved enchiladas without knowing the recipe? Simply input "enchiladas," peruse based on features, and relish the culinary journey.
-4. Refactoring the UI: We've eliminated inactive buttons and links, employing a technical process termed "system refactoring" to enhance functionality and optimize the user interface.
-5. System security upgrade: We observed some passwords present in the codebase, which is a major security threat. We have ensured to removed this and move it to the DB. Additionally, we have implemented secure logins and logouts ensuring the prevention of duplicate entries and safeguards credentials, fortifying the overall security of the system.
-6. The requirements.txt file has been updated to ensure forward compatibility by specifying package versions greater than or equal to the ones explicitly mentioned. This modification allows for the installation of packages with versions that meet or exceed the specified ones, thus accommodating future updates and maintaining compatibility with evolving dependencies.
+1. Rate Meals with Other Users: Rate a meal on a scale of 1-5 stars.  Easily view other recipes’ ratings to know which ones the community thinks are worth cooking.
+2. Save Meals You Like: Save recipes you like to your personal bookmarks tab.  Easily access these recipes again in the future without needing to search
+3. Plan Out Your Meals for the Week: Pick a meal for each day of the week and view the schedule in your personal meal plan tab.  Easily plan out everything you’ll need to cook for the week, all in one place.
+4. UI Overhaul: The user interface has been enhanced to provide the best user experience possible.  Finding and managing recipes has never been easier and looks cleaner than ever. 
+5. Chabot Integration: Includes an option to talk to an Ollama Chatbot from within the app.
 
 ## Documentation and Project Flow:
 ![](flow-rr.gif) <br><br>
@@ -185,7 +184,7 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 
 ## :page_facing_up: License <a name="License"></a>
 
-This project is licensed under the terms of the MIT license. Please check [License](https://github.com/PvPatel-1001/Recipe_Recommender/blob/master/LICENSE) for more details.
+This project is licensed under the terms of the MIT license. Please check [License]([https://github.com/PvPatel-1001/Recipe_Recommender/blob/master/LICENSE](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/LICENSE)) for more details.
 
 ## :pencil2: Contributions <a name="Contributions"></a>
 
