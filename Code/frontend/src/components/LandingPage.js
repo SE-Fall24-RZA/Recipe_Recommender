@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -11,6 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 const LandingPage = ({ onGetStarted }) => {
+  const [isChatbotVisible, setChatbotVisible] = useState(false);
+
+  const handleChatbotToggle = () => {
+    setChatbotVisible(!isChatbotVisible);
+  };
   return (
     <Box as='section' bg='gray.100' py={20} textAlign='center' px={10}>
       <Heading fontSize={{ base: "3xl", md: "5xl" }} color='green.600'>
@@ -101,6 +107,33 @@ const LandingPage = ({ onGetStarted }) => {
               </Box>
             </GridItem>
           ))}
+            <GridItem
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            height='400px'
+            bg='gray.200'
+            borderRadius='md'
+            boxShadow='md'
+            position='relative'
+          >
+            <Button
+              size='lg'
+              colorScheme='blue'
+              onClick={handleChatbotToggle}
+            >
+              Chat with Us
+            </Button>
+          </GridItem>
+        </Grid>
+
+        {/* Conditionally render the Chatbot component */}
+        {isChatbotVisible && (
+          <Box mt={6}>
+            <Chatbot />
+          </Box>
+        )}
         </Grid>
       </VStack>
     </Box>
