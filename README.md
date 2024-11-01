@@ -193,13 +193,13 @@ Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommende
 
 ## FUTURE SCOPE
 
-Implement personalized diertary requirements based filtering.
+**Edit an Existing Recipe **: Fully implement the functionality for editing a pre-existing recipe.  Whoever created the recipe should be able to make changes to any of the recipe’s details
 
-Meal planning- saving data for all meals of the day.
+**Share Recipe By Link **: Create a sharing method allowing a user to send a recipe to someone else via a link or QR Code. Upon opening this link, the recipient should be able to see all details about the recipe.
 
-Voice to text integration. 
+**Grocery List **: Users should be able to add ingredients from recipes to a separate grocery list tab. 
 
-Chatbot integration- to answer quick queries about the recipe.
+**Security Enhancements **: Incorporate encryption and hashing into the login functionality.  Passwords should be stored as salted and hashed, not as raw text.  Implement JSON Web Tokens to securely login users and keep track of who is logged in.  This will ensure the safety of any sensitive user data
 
 ## Team Members
 Robert Thomas - rtthoma3@ncsu.edu <br>
