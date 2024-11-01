@@ -11,9 +11,9 @@ import chat_route from "../apis/chat_route";
 
 // Default chat options for quick start
 const defaultOptions = [
-    "Recipe of the day",
-    "Fast Food Recipes",
-    "New recipe",
+    "  Recipe of the day  ",
+    "  Fast Food Recipes  ",
+    "  New recipe  ",
     
 ];
 
