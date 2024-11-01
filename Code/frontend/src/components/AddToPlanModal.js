@@ -1,3 +1,57 @@
+/**
+ * MiniRecipeCard Component
+ *
+ * This component displays a summary card for a recipe, including the recipe name,
+ * cooking time, rating, and diet type. It highlights the selected recipe and
+ * allows users to click on it to select a recipe for addition to a meal plan.
+ *
+ * Features:
+ * - Displays the recipe name, cooking time, rating, and diet type.
+ * - Changes background color when selected.
+ * - On click, sets the selected recipe in the parent component.
+ *
+ * Props:
+ * - recipe (Object): The recipe object containing details such as name, cooking time,
+ *   rating, and diet type.
+ * - selectedRecipe (string): The ID of the currently selected recipe.
+ * - setRecipe (function): A function to update the selected recipe in the parent component.
+ *
+ * @returns {JSX.Element} The rendered MiniRecipeCard component.
+ */
+
+/**
+ * AddToPlanModal Component
+ *
+ * This component provides a modal interface for adding a selected recipe from bookmarks
+ * to a user's meal plan for a specific day. It displays a list of bookmarked recipes
+ * and allows users to choose a day for the meal plan.
+ *
+ * Features:
+ * - Displays a list of bookmarked recipes as MiniRecipeCard components.
+ * - Allows the user to select a day of the week for adding the meal.
+ * - Submits the selected recipe and day to the meal plan.
+ * - Includes buttons for opening the modal and adding to the meal plan.
+ *
+ * State Management:
+ * - `isOpen` (boolean): Manages the visibility of the modal.
+ * - `day` (string): Stores the selected day for the meal plan.
+ * - `recipeToAdd` (string): Stores the ID of the recipe selected for addition.
+ *
+ * Functions:
+ * - `onClose`: Resets state and closes the modal.
+ * - `addToMealPlan`: Sends a request to add the selected recipe to the meal plan.
+ * - `TextButton`: Renders a button for opening the modal with text.
+ * - `PlusButton`: Renders a button for opening the modal with a plus sign.
+ *
+ * Props:
+ * - bookmarks (Array): An array of bookmarked recipes to display in the modal.
+ * - day (string): The initial day selected for adding the meal plan.
+ * - updateMealPlan (function): A function to refresh the meal plan after adding a recipe.
+ * - text (boolean): A flag to determine which button to render for opening the modal.
+ *
+ * @returns {JSX.Element} The rendered AddToPlanModal component.
+ */
+
 import React, { useState } from "react";
 import {
   Button,
@@ -87,14 +141,14 @@ const MiniRecipeCard = (props) => {
 };
 
 const AddToPlanModal = (props) => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [day, setDay] = useState(props.day)
-    const [recipeToAdd, setRecipeToAdd] = useState(null)
-    const onClose = () => {
-        setRecipeToAdd(null)
-        setDay(props.day)
-        setIsOpen(false)
-    }
+  const [isOpen, setIsOpen] = useState(false);
+  const [day, setDay] = useState(props.day);
+  const [recipeToAdd, setRecipeToAdd] = useState(null);
+  const onClose = () => {
+    setRecipeToAdd(null);
+    setDay(props.day);
+    setIsOpen(false);
+  };
 
   const addToMealPlan = () => {
     const requestBody = {
