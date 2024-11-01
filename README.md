@@ -188,7 +188,7 @@ This project is licensed under the terms of the MIT license. Please check [Licen
 
 ## :pencil2: Contributions <a name="Contributions"></a>
 
-Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommender/blob/master/CONTRIBUTING.md) for instructions on how to contribute to the project by completing some of the issues.
+Please see our [CONTRIBUTING.md](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/CONTRIBUTING.md) for instructions on how to contribute to the project by completing some of the issues.
 
 ## FUTURE SCOPE
 
