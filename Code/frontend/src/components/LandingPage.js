@@ -108,33 +108,24 @@ const LandingPage = ({ onGetStarted }) => {
               </Box>
             </GridItem>
           ))}
-            <GridItem
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            height='400px'
-            bg='gray.200'
-            borderRadius='md'
-            boxShadow='md'
-            position='relative'
-          >
-            <Button
-              size='lg'
-              colorScheme='blue'
-              onClick={handleChatbotToggle}
-            >
-              Chat with Us
-            </Button>
-          </GridItem>
         </Grid>
+
+        <Box mt={12}>
+          <Button
+            size='lg'
+            colorScheme='blue'
+            onClick={handleChatbotToggle}
+          >
+            Chat with Us
+          </Button>
+        </Box>
 
         {/* Conditionally render the Chatbot component */}
         {isChatbotVisible && (
           <Box mt={6}>
             <Chatbot />
           </Box>
-        )}
+        )} 
       
       </VStack>
     </Box>
