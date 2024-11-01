@@ -202,11 +202,9 @@ Voice to text integration.
 Chatbot integration- to answer quick queries about the recipe.
 
 ## Team Members
-
-Annadurai,Harshitha <br>
-Bhoja Ramamanohara,Pannaga Rao <br>
-Masineni Prasanna Kumar,Karthik <br>
-Niranjana,Prathima Putreddy <br>
+Robert Thomas - rtthoma3@ncsu.edu <br>
+Anuraag Jajoo - ajajoo3@ncsu.edu <br>
+Zayaan Husain Siddiqui - Zsiddiq@ncsu.edu <br>
 
 ## Troubleshooting and Support
 Common issues observed and solutions:<br>
