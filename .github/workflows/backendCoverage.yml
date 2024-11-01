@@ -34,3 +34,7 @@ jobs:
       run: |
           cd Code/backend
           npm run test-cov
+    - name: Generate Coverage Badges
+      run: |
+          cd Code/backend
+          npm run test-cov-badges
