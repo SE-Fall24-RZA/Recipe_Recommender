@@ -184,7 +184,7 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 
 ## :page_facing_up: License <a name="License"></a>
 
-This project is licensed under the terms of the MIT license. Please check [License]([https://github.com/PvPatel-1001/Recipe_Recommender/blob/master/LICENSE](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/LICENSE)) for more details.
+This project is licensed under the terms of the MIT license. Please check [License](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/LICENSE) for more details.
 
 ## :pencil2: Contributions <a name="Contributions"></a>
 
