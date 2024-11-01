@@ -305,7 +305,7 @@ export default class RecipesDAO {
     let timesRated = recipe["Times-rated"] ? Number(recipe["Times-rated"]) : 0;
     let currentRating = Number(recipe["Recipe-rating"]) || 0;
     let newRating =
-      (currentRating * timesRated + ratingBody.rating) / timesRated;
+      (currentRating * timesRated + ratingBody.rating) / (timesRated + 1);
     newRating = Math.min(Math.max(newRating, 0), 5);
     timesRated++;
     await recipes.updateOne(
