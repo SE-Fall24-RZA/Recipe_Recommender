@@ -301,16 +301,14 @@ class App extends Component {
               // Render tabs for recipe searching and adding
               <Tabs variant='soft-rounded' colorScheme='green'>
                 <TabList ml={10}>
-                  <Tab>Search Recipe</Tab> // Tab for searching recipes
-                  <Tab>Add Recipe</Tab> // Tab for adding a recipe
-                  <Tab>Search Recipe By Name</Tab> // Tab for searching recipes
-                  by name
+                  <Tab>Search Recipe</Tab>
+                  <Tab>Add Recipe</Tab>
+                  <Tab>Search Recipe By Name</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
                     <Box display='flex'>
-                      <Form sendFormData={this.handleSubmit} /> // Form for
-                      input
+                      <Form sendFormData={this.handleSubmit} />
                       {this.state.isLoading ? ( // Conditional rendering of loading state
                         <RecipeLoading /> // Show loading indicator if loading
                       ) : (
@@ -322,11 +320,10 @@ class App extends Component {
                     </Box>
                   </TabPanel>
                   <TabPanel>
-                    <AddRecipe /> // Component for adding a recipe
+                    <AddRecipe />
                   </TabPanel>
                   <TabPanel>
                     <SearchByRecipe sendRecipeData={this.handleRecipesByName} />{" "}
-                    // Component for searching recipes by name
                     {this.state.isLoading ? ( // Conditional rendering of loading state
                       <RecipeLoading /> // Show loading indicator if loading
                     ) : (

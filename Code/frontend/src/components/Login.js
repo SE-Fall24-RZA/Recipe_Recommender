@@ -1,3 +1,46 @@
+/**
+ * Login Component
+ *
+ * This component renders a login/signup modal that allows users to log in or sign up.
+ * It manages two modes: Login mode and Signup mode, and toggles between these based on user interaction.
+ * On successful login or signup, it calls the relevant function (passed as a prop) and displays a success message using a toast notification.
+ * In case of an error during login or signup, an error toast is shown with the error message.
+ *
+ * Instance Variables:
+ * @state {string} userName - Stores the user's input for the username field.
+ * @state {string} password - Stores the user's input for the password field.
+ * @state {boolean} isLoginMode - Boolean that indicates whether the form is in login mode (true) or signup mode (false).
+ * @const {function} toast - Function from Chakra UI's `useToast` hook to display toast notifications.
+ *
+ * Props:
+ * @param {function} handleLogin - Function called when logging in with user-provided credentials.
+ *                                 Expects parameters (userName: string, password: string) and returns a result object with a 'success' boolean.
+ * @param {function} handleSignup - Function called when signing up with user-provided credentials.
+ *                                  Expects parameters (userName: string, password: string) and returns a result object with a 'success' boolean.
+ * @param {function} onClose - Function to close the modal on successful login/signup or on modal close.
+ *
+ * Functions:
+ * @function handleUserName
+ * @param {Event} e - The event triggered when the user types in the username input field.
+ * @returns {void} - Updates `userName` state with the entered value.
+ *
+ * @function handlePassword
+ * @param {Event} e - The event triggered when the user types in the password input field.
+ * @returns {void} - Updates `password` state with the entered value.
+ *
+ * @function handleSubmit
+ * @param {Event} e - The event triggered when the user submits the form by clicking the login/signup button.
+ * @returns {Promise<void>} - Sends login/signup request based on `isLoginMode`, displays toast notification, resets form fields,
+ *                            and closes the modal on success; shows error toast on failure.
+ *
+ * @function toggleMode
+ * @returns {void} - Toggles the form between login and signup modes, and resets the `userName` and `password` fields.
+ *
+ * Rendered Output:
+ * Returns a JSX element representing the login/signup modal, including fields for username and password,
+ * a toggle link to switch modes, and a submit button. The form is disabled if either the username or password field is empty.
+ */
+
 import { useState } from "react";
 import {
   Modal,
