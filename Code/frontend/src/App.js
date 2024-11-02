@@ -5,7 +5,16 @@ import recipeDB from "./apis/recipeDB";
 import RecipeList from "./components/RecipeList";
 import AddRecipe from "./components/AddRecipe.js";
 import React, { Component } from "react";
-import { Tabs, Tab, TabList, TabPanel, TabPanels, Box } from "@chakra-ui/react";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Box,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
 import RecipeLoading from "./components/RecipeLoading.js";
 import Nav from "./components/Navbar.js";
 import SearchByRecipe from "./components/SearchByRecipe.js";
@@ -14,7 +23,7 @@ import UserProfile from "./components/UserProfile.js";
 import LandingPage from "./components/LandingPage.js";
 import BookMarksRecipeList from "./components/BookMarksRecipeList"; // Import BookMarksRecipeList
 import UserMealPlan from "./components/UserMealPlan.js";
-
+import ChatStream from "./components/chatbot.js";
 // Main component of the project
 class App extends Component {
   // constructor for the App Component
@@ -36,11 +45,18 @@ class App extends Component {
       isLoggedIn: false,
       isProfileView: false,
       isMealPlanView: false,
+      isChatOpen: false,
       userData: {
         bookmarks: [],
       },
     };
   }
+
+  handleToggleChat = () => {
+    this.setState((prevState) => ({
+      isChatOpen: !prevState.isChatOpen,
+    }));
+  };
 
   handleBookMarks = () => {
     this.setState({
@@ -296,6 +312,7 @@ class App extends Component {
                   <Tab>Search Recipe</Tab>
                   <Tab>Add Recipe</Tab>
                   <Tab>Search Recipe By Name</Tab>
+                  <Tab>Recipe Bot</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -325,6 +342,29 @@ class App extends Component {
                         searchName={this.state.searchName}
                       />
                     )}
+                  </TabPanel>
+                  <TabPanel>
+                    <Button
+                      onClick={this.handleToggleChat}
+                      colorScheme={this.state.isChatOpen ? "blue" : "green"} // Change color based on state
+                      variant='solid'
+                      size='lg' // Larger button
+                      borderRadius='md' // Rounded corners
+                      boxShadow='md' // Add a subtle shadow for depth
+                      _hover={{
+                        bg: this.state.isChatOpen ? "blue.600" : "green.600", // Darker shade on hover
+                        transform: "scale(1.05)", // Slightly enlarge on hover
+                      }}
+                      _active={{
+                        bg: this.state.isChatOpen ? "blue.700" : "green.700", // Darker shade when active
+                        transform: "scale(0.95)", // Slightly shrink when clicked
+                      }}
+                    >
+                      {this.state.isChatOpen
+                        ? "Close existing chat window"
+                        : "Start a new chat"}
+                    </Button>
+                    {this.state.isChatOpen && <ChatStream />}
                   </TabPanel>
                 </TabPanels>
               </Tabs>
