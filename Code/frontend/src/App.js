@@ -14,7 +14,7 @@ import UserProfile from "./components/UserProfile.js";
 import LandingPage from "./components/LandingPage.js";
 import BookMarksRecipeList from "./components/BookMarksRecipeList"; // Import BookMarksRecipeList
 import UserMealPlan from "./components/UserMealPlan.js";
-import ChatStream from "./components/chatbot.js"
+import ChatStream from "./components/chatbot.js";
 // Main component of the project
 class App extends Component {
   // constructor for the App Component
@@ -42,13 +42,13 @@ class App extends Component {
       },
     };
   }
-  
+
   handleToggleChat = () => {
     this.setState((prevState) => ({
       isChatOpen: !prevState.isChatOpen,
     }));
   };
-  
+
   handleBookMarks = () => {
     this.setState({
       isProfileView: true,
@@ -303,7 +303,7 @@ class App extends Component {
                   <Tab>Search Recipe</Tab>
                   <Tab>Add Recipe</Tab>
                   <Tab>Search Recipe By Name</Tab>
-                  <Tab>Chat with a bot</Tab>
+                  <Tab>Recipe Bot</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -335,12 +335,9 @@ class App extends Component {
                     )}
                   </TabPanel>
                   <TabPanel>
-                    <button onClick={this.handleToggleChat} className="chat-toggle-button">
-                      {this.state.isChatOpen ? "Close Chat" : "Open Chat"}
-                    </button>
-                    {this.state.isChatOpen && <ChatStream />}
-                </TabPanel>
-               </TabPanels>
+                    <ChatStream />
+                  </TabPanel>
+                </TabPanels>
               </Tabs>
             )}
           </>
