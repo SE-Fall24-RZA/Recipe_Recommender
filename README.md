@@ -4,10 +4,7 @@
 <br><br>
 ## Watch how our application works: 
 ### Click here to watch - [Video](https://drive.google.com/file/d/1kLdyREptrk8A0nui-yENSm4Av3epAtSS/view?usp=sharing) <br>
-<br><br>
-## Watch how our application works:
 
-### Click here to watch - [Youtube Video](https://youtu.be/133EWUQWe5Q) <br>
 
 <br><br>
 
@@ -254,11 +251,13 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 
 ## Release Made in this cycle <br>
 
-1. Major release 3.1 - Major release to add search by recipe, user registration, user login and bookmarks.
-2. Hotfix Release 3.1.2 - Minor version release to add test case for login
-3. Major Release 3.2 - Major release- Included test cases addition, user registration, minor bug fixes and documentation updates<br>
-   [Read our detailed release notes](https://github.com/pnprathima/Recipe_Recommender/releases) <br>
-   <br>
+Release Notes
+  - New community rating system for recipes
+  - Enhanced UI
+  - Meal Plan page allowing users to plan out meals for each day of the week
+  - Improved Bookmarks system
+  - Ollama chatbot integration
+
 
 ### IDE and Code Formatter
 
@@ -294,6 +293,6 @@ Common issues observed and solutions:<br>
 
 1. requirements.txt failing: this issue should no longer be seen, as we have used ~= to ensure your systems pick up versions compatible with the other packages. However, if you happen to see the issue, modify the requirements.txt file to use a more recent version.
 2. python was not found: we recommend using python3 as some of the modules are available only on Python3. You may either install Python3 or setup a virtual environment(we suggest the latter if you are currently running other applications on python2)
-   Facing other issues with the application? Mail us - [teamsoftwareeng7@gmail.com](teamsoftwareeng7@gmail.com)
+   Facing other issues with the application? Mail us at any email listed above
 
 <p align="center">Made with ❤️ on GitHub.</p>
