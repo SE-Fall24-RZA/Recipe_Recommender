@@ -42,6 +42,9 @@ We've added <b> numerous entertaining new features and fixes to enhance user-fri
 
 ## Feature additions: Enhancements, Upgrades and BugFixes:
 
+## Watch how our application works in detail: 
+### Click here to watch the walkthrough - [Video](https://drive.google.com/file/d/1DOolD7SlqlNhsB5FMVuKGv54InO61Hqt/view?usp=sharing) <br>
+
 Presenting our latest additions: Here's a comprehensive list of all our new features, enhancements, and upgrades! <br>
 
 1. User Profile: In our application, users can now establish a profile with a unique username and password, allowing seamless login and logout. This facilitates personalized experiences and customized access to preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes now inhabit a designated area, simplifying the management of all your belongings in one organized space.
