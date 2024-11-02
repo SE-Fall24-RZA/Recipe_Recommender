@@ -5,8 +5,11 @@
 ## Watch how our application works: 
 ### Click here to watch - [Video](https://drive.google.com/file/d/1kLdyREptrk8A0nui-yENSm4Av3epAtSS/view?usp=sharing) <br>
 <br><br>
+## Watch how our application works:
 
+### Click here to watch - [Youtube Video](https://youtu.be/133EWUQWe5Q) <br>
 
+<br><br>
 
 [![Made With](https://img.shields.io/badge/made%20with-javascript-gree)](https://www.javascript.com/)
 [![DOI](https://zenodo.org/badge/706798373.svg)](https://zenodo.org/doi/10.5281/zenodo.10023534)
@@ -23,50 +26,55 @@
 ![CI/CD](https://img.shields.io/badge/CI/CD-Passing-brightgreen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-   
-   
 <h2> What is Recipe Recommender? </h2>
 
-Meet Recipe Recommender, your ultimate kitchen companion! Say goodbye to the dilemma of deciding what to cook with the ingredients on hand. We've revolutionized the cooking experience with an application that effortlessly suggests delicious recipes based on your kitchen inventory.  <br>
+Meet Recipe Recommender, your ultimate kitchen companion! Say goodbye to the dilemma of deciding what to cook with the ingredients on hand. We've revolutionized the cooking experience with an application that effortlessly suggests delicious recipes based on your kitchen inventory. <br>
 
-Unlock the full potential of your pantry and fridge as our innovative software guides you in selecting perfect dishes tailored to your current ingredients. Cooking is now an exciting adventure rather than a daunting task. Immerse yourself in a realm of limitless culinary possibilities with Recipe Recommender.  <br>
+Unlock the full potential of your pantry and fridge as our innovative software guides you in selecting perfect dishes tailored to your current ingredients. Cooking is now an exciting adventure rather than a daunting task. Immerse yourself in a realm of limitless culinary possibilities with Recipe Recommender. <br>
 
 We've added <b> numerous entertaining new features and fixes to enhance user-friendliness.</b> <br>
+
 1. Craving enchiladas but unsure how to cook Mexican food? Now, you can search for recipes by names! Just type in "enchiladas," choose a recipe based on its features, and enjoy. <br>
 
-2. Imagine finding interesting recipes during your commute. With another new feature, you can save them on the go. We've also introduced dedicated user profiles. Sign up, log in, and save your favorite recipes under your profile in the "bookmarks" section. When you're ready to cook, everything will be waiting for you.  <br>
+2. Imagine finding interesting recipes during your commute. With another new feature, you can save them on the go. We've also introduced dedicated user profiles. Sign up, log in, and save your favorite recipes under your profile in the "bookmarks" section. When you're ready to cook, everything will be waiting for you. <br>
 
-3. That's not all! We've removed non-functional buttons, technically known as "refactoring the system."  <br>
+3. That's not all! We've removed non-functional buttons, technically known as "refactoring the system." <br>
 4. Your profile, information, and favorite recipes now have a dedicated space. Secure logins and logouts ensure no duplicate entries or exposed credentials, making the system more secure.
-
 
 <br> <b> More about our new additions in our next section!</b>
 
 ## Feature additions: Enhancements, Upgrades and BugFixes:
+
 Presenting our latest additions: Here's a comprehensive list of all our new features, enhancements, and upgrades! <br>
-1. Rate Meals with Other Users: Rate a meal on a scale of 1-5 stars.  Easily view other recipes’ ratings to know which ones the community thinks are worth cooking.
-2. Save Meals You Like: Save recipes you like to your personal bookmarks tab.  Easily access these recipes again in the future without needing to search
-3. Plan Out Your Meals for the Week: Pick a meal for each day of the week and view the schedule in your personal meal plan tab.  Easily plan out everything you’ll need to cook for the week, all in one place.
-4. UI Overhaul: The user interface has been enhanced to provide the best user experience possible.  Finding and managing recipes has never been easier and looks cleaner than ever. 
-5. Chabot Integration: Includes an option to talk to an Ollama Chatbot from within the app.
+
+1. User Profile: In our application, users can now establish a profile with a unique username and password, allowing seamless login and logout. This facilitates personalized experiences and customized access to preferences and activities. Further details will be discussed in the following points. Your profile, information, and preferred recipes now inhabit a designated area, simplifying the management of all your belongings in one organized space.
+2. Bookmarks: Picture this scenario: You're commuting, scrolling through intriguing recipes in our app. Thanks to a cutting-edge feature, you can now save them instantly. The introduction of dedicated user profiles elevates your experience. Simply sign up, log in, and curate your favorite recipes in the "bookmarks" section under your profile. When the time comes to cook, everything awaits you – seamlessly organized and easily accessible.
+3. Search for recipes by name: Previously limited to ingredient-based searches only, our system now boasts an exciting upgrade. You can now search for recipes by name! Ever craved enchiladas without knowing the recipe? Simply input "enchiladas," peruse based on features, and relish the culinary journey.
+4. Refactoring the UI: We've eliminated inactive buttons and links, employing a technical process termed "system refactoring" to enhance functionality and optimize the user interface.
+5. System security upgrade: We observed some passwords present in the codebase, which is a major security threat. We have ensured to removed this and move it to the DB. Additionally, we have implemented secure logins and logouts ensuring the prevention of duplicate entries and safeguards credentials, fortifying the overall security of the system.
+6. The requirements.txt file has been updated to ensure forward compatibility by specifying package versions greater than or equal to the ones explicitly mentioned. This modification allows for the installation of packages with versions that meet or exceed the specified ones, thus accommodating future updates and maintaining compatibility with evolving dependencies.
+7. We have enhanced the project by implementing robust login bug fixes, comprehensive form validations, and an expanded suite of test cases.
 
 ## Documentation and Project Flow:
+
 ![](flow-rr.gif) <br><br>
+
 1. User Registration: Establish a unique username and password; no duplicate usernames allowed, ensuring password confidentiality.
-2. User Authentication: Log in using the correct username and password for secure access.
-3. Search Recipes by Ingredients: Input your available ingredients to discover relevant recipes based on ingredient names.
-4. Search Recipes by Dish Name: Locate recipes by specifying the dish name in the search.
-5. Add a Recipe: Share details such as ingredients, dish name, time, cuisine, instructions, and optional images to contribute your recipe.
-6. Bookmark Favorite Recipes: Save preferred recipes for easy access.
-7. View Bookmarked Recipes in User Profile: Access and review all saved recipes conveniently stored under your user profile.
-8. Logout: Securely log out to protect your profile information and activities. <br><br>
-
-
+   User Authentication: Log in using the correct username and password for secure access.
+2. Search Recipes by Ingredients: Input your available ingredients to discover relevant recipes based on ingredient names.
+3. Search Recipes by Dish Name: Locate recipes by specifying the dish name in the search.
+4. Add a Recipe: Share details such as ingredients, dish name, time, cuisine, instructions, and optional images to contribute your recipe.
+5. Bookmark Favorite Recipes: Save preferred recipes for easy access.
+6. View Bookmarked Recipes in User Profile: Access and review all saved recipes conveniently stored under your user profile.
+7. Logout: Securely log out to protect your profile information and activities.
+8. Meal Planning: Add recipes to your meal plan for specific days, helping you organize your meals in advance.
+9. Recipe Rating: Rate recipes based on your experience, allowing other users to benefit from your feedback.
+10. Chatbot Assistance: Interact with a chatbot for instant support and recipe suggestions, enhancing user engagement and experience. <br><br>
 
 Source documentation can be found at: [Recipe Recommender Docs](https://github.com/pnprathima/Recipe_Recommender/blob/master/Recipe%20Recommender%20Source%20Documentation.pdf)
 
-
 ## API Documentation
+
 **Get Recipes:**
 Retrieve a list of recipes based on specified filters like ingredients, cuisine, and page parameters. Success returns a code of 200 with the recipe list; error returns code 500 with an error message.
 
@@ -91,6 +99,79 @@ Retrieves bookmarked recipes for a user through the /getBookmarks endpoint. Succ
 **Add Recipe to User Profile:**
 Adds a recipe to a user's profile bookmarks via the /addRecipeToProfile endpoint. Success returns a code of 200 with the count of modified items; error returns code 500 with an error message.
 
+**APIs for New Functionality**
+
+### Add Recipe to User's Meal Plan
+
+- **Endpoint**: `POST /mealplan/add`
+- **Description**: Attempts to add a specified recipe to the specified day of the specified user's meal plan.
+- **Request Body**:
+  ```json
+  {
+    "userName": "string",
+    "recipeID": "string",
+    "weekDay": "string"
+  }
+  ```
+- **Response**:
+
+  - **Success**: `{ success: true, message: "Recipe added to meal plan" }`
+  - **Failure**: `{ error: "Internal server error" }`
+
+  ### Get User's Meal Plan
+
+- **Endpoint**: `GET /mealplan`
+- **Description**: Attempts to retrieve the meal plan of a specified user. If the user exists, the meal plan is returned.
+- **Query Parameters**:
+  - `userName`: The username of the user whose meal plan is being retrieved.
+- **Response**:
+  - **Success**:
+    - Returns the user's meal plan in the response body.
+    ```json
+    {
+      "mealPlan": [...]
+    }
+    ```
+  - **Failure**:
+    - Returns an error message if an internal server error occurs.
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+
+### Rate a Recipe
+
+- **Endpoint**: `PATCH /recipes/rate`
+- **Description**: Updates the rating information for a specified recipe.
+- **Request Body**:
+  ```json
+  {
+    "recipeId": "string",
+    "rating": "number"
+  }
+  ```
+- **Response**:
+  - **Success**:
+    - Returns the updated rating information.
+    ```json
+    {
+      "status": "success",
+      "data": {
+        "recipeId": "string",
+        "rating": "number",
+        "message": "Rating updated successfully"
+      }
+    }
+    ```
+  - **Failure**:
+    - Returns an error message if an internal server error occurs.
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+
 <br>Detailed documentation can be found at: [API Docs](https://github.com/pnprathima/Recipe_Recommender/blob/master/API_Documentation.pdf)
 
 ## Technology Stack
@@ -114,8 +195,10 @@ Adds a recipe to a user's profile bookmarks via the /addRecipeToProfile endpoint
 ## Project Setup Steps:
 
 ### Installation:
+
 Check out our comprehensive YouTube video demonstrating each step for easy guidance. [Project Setup]()
 -clone repository using `git clone https://github.com/SE-Fall24-RZA/Recipe_Recommender.git`
+
 - setup for frontend
   open terminal and navigate to the **frontend** folder and execute the following:
   ```
@@ -127,32 +210,35 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
   ```
   npm install
   ```
+
 - Database Setup
-    1) In the **backend** folder, make a copy of the `.env.sample` file, and name it `.env`
 
-    2) Create a free account with MongoDB Atlas at this link: https://www.mongodb.com/products/platform/atlas-database
+  1. In the **backend** folder, make a copy of the `.env.sample` file, and name it `.env`
 
-    3) Create a new free deployment cluster (name it whatever you like).
+  2. Create a free account with MongoDB Atlas at this link: https://www.mongodb.com/products/platform/atlas-database
 
-    4) After the cluster is created, follow along with the setup instructions provided.  Make sure to add a user, and store the provided password somewhere.
+  3. Create a new free deployment cluster (name it whatever you like).
 
-    5) Press "Choose a connection method" and then select "Drivers"
+  4. After the cluster is created, follow along with the setup instructions provided. Make sure to add a user, and store the provided password somewhere.
 
-    6) Copy the connection string and paste it into the 'RECIPES_DB_URI' value in the `.env` file from step 1.  If necessary, replace <db_password> with the password from step 3.
+  5. Press "Choose a connection method" and then select "Drivers"
 
-    7) Press "Done".  On the left side of the screen, click "Database".  Then click on the name of your cluster.  Click on the "Collections" tab.  Create a new database and name it 'recipe_recommender'
+  6. Copy the connection string and paste it into the 'RECIPES_DB_URI' value in the `.env` file from step 1. If necessary, replace <db_password> with the password from step 3.
 
-    8) Add three collections titled 'user', 'recipe', and 'ingredient_list'.  To add additional collections, hover over the database name, 'recipe_recommender' and press the small plus that appears.
+  7. Press "Done". On the left side of the screen, click "Database". Then click on the name of your cluster. Click on the "Collections" tab. Create a new database and name it 'recipe_recommender'
 
-    9) Return to the project's .env file.  Replace the value in the 'GMAIL' field with the email you used to set up the Atlas account
+  8. Add three collections titled 'user', 'recipe', and 'ingredient_list'. To add additional collections, hover over the database name, 'recipe_recommender' and press the small plus that appears.
+
+  9. Return to the project's .env file. Replace the value in the 'GMAIL' field with the email you used to set up the Atlas account
 
 - Ollama Setup (Optional, for chatbot functionality)
-    1) Download Ollama for your machine from this link: https://ollama.com/download
 
-    2) Once Ollama is installed, ensure its path is added to your system environment variables, if necessary
+  1. Download Ollama for your machine from this link: https://ollama.com/download
 
-    3) Call `ollama run codeqwen`, and wait for the model to download
-       
+  2. Once Ollama is installed, ensure its path is added to your system environment variables, if necessary
+
+  3. Call `ollama run codeqwen`, and wait for the model to download
+
   ## Execution Steps
 
 1.  start backend server using:
@@ -166,21 +252,18 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 3.  Automatically a browser window is opened which shows frontend.
 4.  run `npm test` for running the tests [Dependencies: Jest, Chai, Supertest]
 
-
 ## Release Made in this cycle <br>
+
 1. Major release 3.1 - Major release to add search by recipe, user registration, user login and bookmarks.
 2. Hotfix Release 3.1.2 - Minor version release to add test case for login
 3. Major Release 3.2 - Major release- Included test cases addition, user registration, minor bug fixes and documentation updates<br>
-[Read our detailed release notes](https://github.com/pnprathima/Recipe_Recommender/releases) <br>
-<br>
-
+   [Read our detailed release notes](https://github.com/pnprathima/Recipe_Recommender/releases) <br>
+   <br>
 
 ### IDE and Code Formatter
 
 - [Visual Studio Code](https://code.visualstudio.com/) IDE
 - [Prettier Formatter for Visual Studio Code](https://github.com/prettier/prettier-vscode/blob/main/README.md)
-
-
 
 ## :page_facing_up: License <a name="License"></a>
 
@@ -206,11 +289,11 @@ Anuraag Jajoo - ajajoo3@ncsu.edu <br>
 Zayaan Husain Siddiqui - Zsiddiq@ncsu.edu <br>
 
 ## Troubleshooting and Support
+
 Common issues observed and solutions:<br>
+
 1. requirements.txt failing: this issue should no longer be seen, as we have used ~= to ensure your systems pick up versions compatible with the other packages. However, if you happen to see the issue, modify the requirements.txt file to use a more recent version.
 2. python was not found: we recommend using python3 as some of the modules are available only on Python3. You may either install Python3 or setup a virtual environment(we suggest the latter if you are currently running other applications on python2)
-Facing other issues with the application? Mail us - [teamsoftwareeng7@gmail.com](teamsoftwareeng7@gmail.com)
-
-
+   Facing other issues with the application? Mail us - [teamsoftwareeng7@gmail.com](teamsoftwareeng7@gmail.com)
 
 <p align="center">Made with ❤️ on GitHub.</p>

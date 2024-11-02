@@ -1,3 +1,41 @@
+/**
+ * AddRecipe Component
+ *
+ * This component allows users to add a new recipe by providing various details
+ * such as recipe name, cooking time, diet type, recipe rating, cuisine,
+ * recipe URL, image URL, ingredients, restaurants, locations, and instructions.
+ *
+ * Features:
+ * - Input fields for recipe details, including a slider for rating.
+ * - Dynamic addition and removal of ingredients, restaurants, and locations.
+ * - Alert system to notify users of success or failure when submitting a recipe.
+ * - Validation to ensure the recipe name is provided before submission.
+ * - Uses Chakra UI for styling and layout components.
+ *
+ * State Management:
+ * - `recipe`: An object containing all the recipe details entered by the user.
+ * - `alert`: An object to manage alert visibility, messages, and status.
+ * - Local state variables for managing user inputs for ingredients, restaurants,
+ *   and locations.
+ *
+ * Functions:
+ * - `handleChange`: Updates the state of the recipe based on user input.
+ * - `handleRatingChange`: Updates the recipe rating based on the slider value.
+ * - `addIngredient`: Adds a new ingredient to the recipe and clears the input.
+ * - `addRestaurant`: Adds a new restaurant to the recipe and clears the input.
+ * - `addLocation`: Adds a new location to the recipe and clears the input.
+ * - `addRecipe`: Validates the input and submits the recipe data to the server,
+ *   displaying appropriate alerts based on the outcome.
+ * - `removeIngredient`: Removes an ingredient from the recipe.
+ * - `removeRestaurant`: Removes a restaurant from the recipe.
+ * - `removeLocation`: Removes a location from the recipe.
+ *
+ * Alert Dialog:
+ * - Displays a confirmation dialog if the recipe name is empty upon submission.
+ *
+ * @returns {JSX.Element} The rendered AddRecipe component.
+ */
+
 import React from "react";
 import {
   Box,

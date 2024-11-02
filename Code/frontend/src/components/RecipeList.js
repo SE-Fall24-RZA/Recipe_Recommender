@@ -1,3 +1,38 @@
+/**
+ * RecipeList Component
+ *
+ * Displays a list of recipes as individual RecipeCard components in a grid layout.
+ * Each recipe can be clicked to open a modal displaying detailed information,
+ * where users can view or edit the recipe information and save changes.
+ * Users can also rate the recipe or access a YouTube search link for cooking videos.
+ *
+ * Props:
+ * @param {Array} recipes - An array of recipe objects to be displayed.
+ * @param {Function} refresh - Callback function to refresh the recipes list, used after updates.
+ * @param {string} searchName - The search term or filter used when fetching recipes.
+ *
+ * State:
+ * @property {boolean} isOpen - Controls the visibility of the recipe detail modal.
+ * @property {object} currentRecipe - Stores the currently selected recipe's details.
+ * @property {boolean} isChange - Tracks if there are unsaved changes to prompt refreshing.
+ * @property {boolean} isEditing - Toggles between view and edit modes for recipe details.
+ *
+ * Functions:
+ * handleViewRecipe - Opens the modal with details of the selected recipe.
+ * handleEditToggle - Toggles between edit and view modes in the modal.
+ * handleInputChange - Updates the currentRecipe state with edited field values.
+ * handleSaveEdit - Saves edited recipe details to the database and triggers refresh.
+ * onClose - Closes the modal and optionally refreshes the recipe list if changes were made.
+ *
+ * UI Elements:
+ * - Displays a grid of RecipeCard components for each recipe in the 'recipes' array.
+ * - Modal contains editable fields for recipe details (name, cooking time, diet type, cuisine, ingredients, instructions).
+ * - Includes a button to watch related recipes on YouTube, rating display, and an edit/save button.
+ *
+ * Example Usage:
+ * <RecipeList recipes={recipes} refresh={fetchRecipes} searchName={searchTerm} />
+ */
+
 import React, { useState } from "react";
 import {
   Avatar,

@@ -1,3 +1,31 @@
+/**
+ * BookMarksRecipeList Component
+ *
+ * This component renders a list of bookmarked recipes in a grid format. Each recipe is displayed
+ * using the BookMarksRecipeCard component. When a recipe card is clicked, a modal opens displaying
+ * detailed information about the selected recipe, including cooking time, rating, diet type,
+ * instructions, and a link to related YouTube videos.
+ *
+ * Features:
+ * - Displays a grid of bookmarked recipes.
+ * - Opens a modal with detailed information when a recipe is selected.
+ * - Provides a link to search for related YouTube videos based on the recipe name.
+ *
+ * State Management:
+ * - Uses `useState` to manage the modal's open state and the currently selected recipe.
+ *
+ * Functions:
+ * - `handleViewRecipe`: Sets the current recipe and opens the modal for viewing the recipe details.
+ * - `onClose`: Closes the modal when called.
+ *
+ * Props:
+ * - recipes (Array): An array of recipe objects containing details such as name, cooking time,
+ *   rating, diet type, image URL, and instructions.
+ *
+ * @returns {JSX.Element} The rendered BookMarksRecipeList component containing the list of
+ *                         bookmarked recipes and a modal for viewing recipe details.
+ */
+
 /* MIT License
 
 Copyright (c) 2023 Pannaga Rao, Harshitha, Prathima, Karthik  */

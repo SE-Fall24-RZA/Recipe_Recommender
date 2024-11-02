@@ -1,3 +1,33 @@
+/**
+ * BookMarksRecipeCard Component
+ *
+ * This component displays a card for a bookmarked recipe, including the recipe name,
+ * cooking time, rating, diet type, and an image. It allows users to click on the recipe
+ * name to view more details and provides a button to remove the bookmark.
+ *
+ * Features:
+ * - Displays the recipe name as a clickable heading.
+ * - Shows the cooking time, rating, diet type, and an image of the recipe.
+ * - Provides an option to remove the bookmark, with success/error feedback through toasts.
+ *
+ * State Management:
+ * - Uses Chakra UI's `useToast` for displaying feedback messages to the user.
+ *
+ * Functions:
+ * - `handleClick`: Calls the handler function passed via props to perform an action
+ *   when the recipe name is clicked.
+ * - `handleRemove`: Sends a request to the backend to remove the recipe bookmark
+ *   for the user, showing a toast notification upon success or failure.
+ *
+ * Props:
+ * - recipe (Object): The recipe object containing details such as name, cooking time,
+ *   rating, diet type, and image URL.
+ * - handler (function): A function to handle the action performed when the recipe name
+ *   is clicked, typically for displaying recipe details.
+ *
+ * @returns {JSX.Element} The rendered BookMarksRecipeCard component.
+ */
+
 import React from "react";
 import {
   Card,

@@ -1,3 +1,44 @@
+/**
+ * Form Component
+ *
+ * This component allows users to input their preferences for recipe search.
+ * Users can add ingredients, select a cuisine type, and provide their email
+ * address to receive alerts. The component also features a TypeAhead dropdown
+ * for ingredient selection and dynamically displays added ingredients as badges.
+ *
+ * Features:
+ * - Input field for entering ingredients with an option to add them to a list.
+ * - Dropdown menu to select a cuisine type from a predefined list.
+ * - Email input field for users to receive alerts about recipe suggestions.
+ * - A switch to enable or disable email alerts.
+ *
+ * State Management:
+ * - Uses `state` to manage ingredients (stored in a Set to ensure uniqueness),
+ *   selected cuisine, and lists of available ingredients and cuisines.
+ *
+ * Lifecycle Methods:
+ * - `componentDidMount`: Fetches a list of available ingredients from an API
+ *   and initializes a predefined list of cuisines.
+ *
+ * Functions:
+ * - `printHander`: Renders a list of badges for added ingredients, allowing
+ *   users to click on a badge to remove it.
+ * - `addHandler`: Adds an ingredient to the state and clears the input field.
+ * - `removeHandler`: Removes an ingredient from the state when a badge is clicked.
+ * - `handleSubmit`: Constructs an object with user inputs and triggers a callback
+ *   to send this data to a parent component.
+ * - `handleCuisineChange`: Updates the selected cuisine in the state based on user
+ *   selection from the dropdown.
+ *
+ * Props:
+ * - sendFormData (function): A callback function passed from the parent component
+ *   to handle the submission of form data.
+ *
+ * @returns {JSX.Element} The rendered Form component, which includes input fields
+ *                         for ingredients, cuisine selection, email input,
+ *                         and a button to submit the form.
+ */
+
 import React, { Component } from "react";
 import {
   Box,

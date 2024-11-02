@@ -1,3 +1,56 @@
+/**
+ * RecipeCard Component
+ *
+ * This component renders a recipe card with various details about a recipe,
+ * including its image, name, rating, cooking time, and diet type. It also allows
+ * users to save the recipe to their profile and displays a success or error toast message
+ * based on the outcome.
+ *
+ * Props:
+ * @param {Object} props - The component's props.
+ * @param {Object} props.recipe - The recipe object containing all relevant recipe details.
+ *                                Fields include:
+ *                                - TranslatedRecipeName: {string} - The name of the recipe.
+ *                                - "image-url": {string} - URL of the recipe image.
+ *                                - TotalTimeInMins: {number} - Total cooking time in minutes.
+ *                                - Recipe-rating: {number} - Rating of the recipe.
+ *                                - Diet-type: {string} - Dietary type of the recipe (e.g., Vegetarian, Vegan).
+ * @param {Function} props.handler - Function to handle clicking the card header, typically to view recipe details.
+ *
+ * Instance Variables:
+ * @const {Function} toast - Function from Chakra UI's `useToast` hook to display toast notifications.
+ *
+ * Functions:
+ * @function handleClick
+ * @description Calls `props.handler` with the current recipe, allowing navigation to the recipe details.
+ * @returns {void}
+ *
+ * @function handleSave
+ * @description Saves the recipe to the user's profile if logged in. Uses `recipeDB` API to make a POST request
+ *              to save the recipe under the current user's profile. Displays a toast on success or failure.
+ * @async
+ * @returns {Promise<void>} - Shows success or error toast based on the save result.
+ *
+ * Rendered Output:
+ * - Displays a clickable card with recipe details: name, image, rating, cooking time, and diet type.
+ * - Includes a `Save Recipe` tag that triggers `handleSave` on click.
+ * - The card has hover effects and applies styles based on Chakra UI's styling system.
+ *
+ * Example Usage:
+ * ```
+ * <RecipeCard
+ *   recipe={{
+ *     TranslatedRecipeName: "Pasta",
+ *     "image-url": "https://example.com/image.jpg",
+ *     TotalTimeInMins: 30,
+ *     "Recipe-rating": 4.5,
+ *     "Diet-type": "Vegetarian",
+ *   }}
+ *   handler={(recipe) => console.log("Recipe clicked:", recipe)}
+ * />
+ * ```
+ */
+
 import React from "react";
 import {
   Box,

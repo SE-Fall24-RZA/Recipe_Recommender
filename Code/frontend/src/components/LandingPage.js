@@ -23,9 +23,6 @@ const LandingPage = ({ onGetStarted }) => {
       <Heading fontSize={{ base: "3xl", md: "5xl" }} color='green.600'>
         Discover & Organize Your Favorite Recipes
       </Heading>
-      <Text fontSize={{ base: "md", md: "xl" }} mt={4} color='gray.600'>
-        Effortlessly search, organize, and share recipes with a few clicks.
-      </Text>
       <Stack
         direction={{ base: "column", sm: "row" }}
         spacing={4}
@@ -45,10 +42,10 @@ const LandingPage = ({ onGetStarted }) => {
 
         {/* Full-width Image Grid for Features */}
         <Grid
-          templateColumns={{ base: "1fr", md: "1fr 1fr" }}
-          gap={0} // remove gaps to span the full width
+          templateColumns='1fr' // Make it a single column for all screen sizes
+          gap={4} // Add some gap between items
           mt={4}
-          width='100%' // Make grid take full width
+          width='100%'
         >
           {[
             {
@@ -63,17 +60,17 @@ const LandingPage = ({ onGetStarted }) => {
               description:
                 "Save your favorite recipes into personalized folders for easy access.",
             },
-            // {
-            //   src: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600",
-            //   title: "Share with Friends",
-            //   description:
-            //     "Easily share your recipes and meal plans with family and friends.",
-            // },
             {
               src: "https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&w=600",
               title: "Meal Planning",
               description:
                 "Create and manage your weekly meal plans to simplify grocery shopping.",
+            },
+            {
+              src: "https://botsify.com/blog/wp-content/uploads/2020/05/Copy-of-Copy-of-Chatbot-Automation_-The-Use-Case-In-Major-Functions-Of-Your-Business-16.jpg",
+              title: "Chatbot Assistance",
+              description:
+                "Ask your cooking questions or get inspiration from our Recipe Bot.",
             },
           ].map((feature, index) => (
             <GridItem
@@ -88,7 +85,7 @@ const LandingPage = ({ onGetStarted }) => {
                 objectFit='cover'
                 width='100%'
                 height='100%'
-                filter='brightness(0.7)' // Darkens the image slightly for better text readability
+                filter='brightness(0.7)'
               />
               <Box
                 position='absolute'
@@ -97,7 +94,7 @@ const LandingPage = ({ onGetStarted }) => {
                 transform='translate(-50%, -50%)'
                 color='white'
                 textAlign='center'
-                bg='rgba(0, 0, 0, 0.6)' // Semi-transparent background for text
+                bg='rgba(0, 0, 0, 0.6)'
                 p={4}
                 borderRadius='md'
               >
