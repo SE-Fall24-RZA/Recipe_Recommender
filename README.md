@@ -9,7 +9,7 @@
 <br><br>
 
 [![Made With](https://img.shields.io/badge/made%20with-javascript-gree)](https://www.javascript.com/)
-[![DOI](https://zenodo.org/badge/706798373.svg)](https://zenodo.org/doi/10.5281/zenodo.10023534)
+[![DOI](https://zenodo.org/badge/870831240.svg)](https://doi.org/10.5281/zenodo.14027504)
 [![GitHub issues open](https://img.shields.io/github/issues/SE-Fall24-RZA/Recipe_Recommender)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/issues)
 [![GitHub stars](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)
 ![Github closes issues](https://img.shields.io/github/issues-closed-raw/SE-Fall24-RZA/Recipe_Recommender)
