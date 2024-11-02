@@ -2,7 +2,9 @@
 
 ![](Reciperec.gif)
 <br><br>
-
+## Watch how our application works: 
+### Click here to watch - [Video](https://drive.google.com/file/d/1kLdyREptrk8A0nui-yENSm4Av3epAtSS/view?usp=sharing) <br>
+<br><br>
 ## Watch how our application works:
 
 ### Click here to watch - [Youtube Video](https://youtu.be/133EWUQWe5Q) <br>
@@ -11,19 +13,16 @@
 
 [![Made With](https://img.shields.io/badge/made%20with-javascript-gree)](https://www.javascript.com/)
 [![DOI](https://zenodo.org/badge/706798373.svg)](https://zenodo.org/doi/10.5281/zenodo.10023534)
-[![GitHub issues open](https://img.shields.io/github/issues/pnprathima/Recipe_Recommender)](https://github.com/pnprathima/Recipe_Recommender/issues)
-[![GitHub stars](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)](https://badgen.net/github/stars/pnprathima/Recipe_Recommender)
-![Github closes issues](https://img.shields.io/github/issues-closed-raw/pnprathima/Recipe_Recommender)
-[![Build Status](https://app.travis-ci.com/pnprathima/Recipe_Recommender.svg?branch=master)](https://app.travis-ci.com/pnprathima/Recipe_Recommender)
-[![codecov](https://codecov.io/gh/usmanwardag/dollar_bot/branch/main/graph/badge.svg?token=PYAWX95R67)](https://codecov.io/gh/usmanwardag/dollar_bot)
+[![GitHub issues open](https://img.shields.io/github/issues/SE-Fall24-RZA/Recipe_Recommender)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/issues)
+[![GitHub stars](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)](https://badgen.net/github/stars/SE-Fall24-RZA/Recipe_Recommender)
+![Github closes issues](https://img.shields.io/github/issues-closed-raw/SE-Fall24-RZA/Recipe_Recommender)
+[![codecov](https://codecov.io/gh/SE-Fall24-RZA/Recipe_Recommender/graph/badge.svg?token=mBl30Hpkf0)](https://codecov.io/gh/SE-Fall24-RZA/Recipe_Recommender)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Respost - Write comment to new Issue event](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/Respost.yml/badge.svg)](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/Respost.yml)
-![GitHub contributors](https://img.shields.io/github/contributors/pnprathima/Recipe_Recommender)
-[![Code Formatter and Syntax Check](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/Code_Formatter_and_Syntax_Check.yml/badge.svg)](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/Code_Formatter_and_Syntax_Check.yml)
-[![Running Code Coverage](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/coverage.yml/badge.svg)](https://github.com/pnprathima/Recipe_Recommender/actions/workflows/coverage.yml)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pnprathima/Recipe_Recommender)
-![Open Issues](https://img.shields.io/github/issues-raw/pnprathima/Recipe_Recommender)
-![Closed Issues](https://img.shields.io/github/issues-closed-raw/pnprathima/Recipe_Recommender)
+![GitHub contributors](https://img.shields.io/github/contributors/SE-Fall24-RZA/Recipe_Recommender)
+[![Code Formatter](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/codeFormatter.yml/badge.svg)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/codeFormatter.yml)
+[![Syntax Checker](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/Syntax_Check.yml/badge.svg)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/Syntax_Check.yml)
+[![Tests](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/backendTests.yml/badge.svg)](https://github.com/SE-Fall24-RZA/Recipe_Recommender/actions/workflows/backendTests.yml)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/SE-Fall24-RZA/Recipe_Recommender)
 ![CI/CD](https://img.shields.io/badge/CI/CD-Passing-brightgreen)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -268,28 +267,26 @@ Check out our comprehensive YouTube video demonstrating each step for easy guida
 
 ## :page_facing_up: License <a name="License"></a>
 
-This project is licensed under the terms of the MIT license. Please check [License](https://github.com/PvPatel-1001/Recipe_Recommender/blob/master/LICENSE) for more details.
+This project is licensed under the terms of the MIT license. Please check [License](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/LICENSE) for more details.
 
 ## :pencil2: Contributions <a name="Contributions"></a>
 
-Please see our [CONTRIBUTING.md](https://github.com/pnprathima/Recipe_Recommender/blob/master/CONTRIBUTING.md) for instructions on how to contribute to the project by completing some of the issues.
+Please see our [CONTRIBUTING.md](https://github.com/SE-Fall24-RZA/Recipe_Recommender/blob/group31-fall24/CONTRIBUTING.md) for instructions on how to contribute to the project by completing some of the issues.
 
 ## FUTURE SCOPE
 
-Implement personalized diertary requirements based filtering.
+1. Edit an Existing Recipe : Fully implement the functionality for editing a pre-existing recipe.  Whoever created the recipe should be able to make changes to any of the recipe’s details
 
-Meal planning- saving data for all meals of the day.
+2. Share Recipe By Link : Create a sharing method allowing a user to send a recipe to someone else via a link or QR Code. Upon opening this link, the recipient should be able to see all details about the recipe.
 
-Voice to text integration.
+3. Grocery List : Users should be able to add ingredients from recipes to a separate grocery list tab. 
 
-Chatbot integration- to answer quick queries about the recipe.
+4. Security Enhancements : Incorporate encryption and hashing into the login functionality.  Passwords should be stored as salted and hashed, not as raw text.  Implement JSON Web Tokens to securely login users and keep track of who is logged in.  This will ensure the safety of any sensitive user data
 
 ## Team Members
-
-Annadurai,Harshitha <br>
-Bhoja Ramamanohara,Pannaga Rao <br>
-Masineni Prasanna Kumar,Karthik <br>
-Niranjana,Prathima Putreddy <br>
+Robert Thomas - rtthoma3@ncsu.edu <br>
+Anuraag Jajoo - ajajoo3@ncsu.edu <br>
+Zayaan Husain Siddiqui - Zsiddiq@ncsu.edu <br>
 
 ## Troubleshooting and Support
 

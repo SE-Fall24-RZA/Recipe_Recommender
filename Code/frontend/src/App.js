@@ -1,19 +1,29 @@
-// Import necessary components and libraries
-import Form from "./components/Form.js"; // Form for user input to search for recipes
-import Header from "./components/Header"; // Header component for the app
-import recipeDB from "./apis/recipeDB"; // API for making requests to the backend
-import RecipeList from "./components/RecipeList"; // Component to display the list of recipes
-import AddRecipe from "./components/AddRecipe.js"; // Component for adding a new recipe
-import React, { Component } from "react"; // React library for creating components
-import { Tabs, Tab, TabList, TabPanel, TabPanels, Box } from "@chakra-ui/react"; // Chakra UI components for tab navigation
-import RecipeLoading from "./components/RecipeLoading.js"; // Loading indicator for recipes
-import Nav from "./components/Navbar.js"; // Navigation bar component
-import SearchByRecipe from "./components/SearchByRecipe.js"; // Component for searching recipes by name
-import Login from "./components/Login.js"; // Login component for user authentication
-import UserProfile from "./components/UserProfile.js"; // Component for displaying user profile
-import LandingPage from "./components/LandingPage.js"; // Landing page component shown when user is not logged in
-import BookMarksRecipeList from "./components/BookMarksRecipeList"; // Component to display bookmarked recipes
-import UserMealPlan from "./components/UserMealPlan.js"; // Component for managing user's meal plans
+//
+import Form from "./components/Form.js";
+import Header from "./components/Header";
+import recipeDB from "./apis/recipeDB";
+import RecipeList from "./components/RecipeList";
+import AddRecipe from "./components/AddRecipe.js";
+import React, { Component } from "react";
+import {
+  Tabs,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Box,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
+import RecipeLoading from "./components/RecipeLoading.js";
+import Nav from "./components/Navbar.js";
+import SearchByRecipe from "./components/SearchByRecipe.js";
+import Login from "./components/Login.js";
+import UserProfile from "./components/UserProfile.js";
+import LandingPage from "./components/LandingPage.js";
+import BookMarksRecipeList from "./components/BookMarksRecipeList"; // Import BookMarksRecipeList
+import UserMealPlan from "./components/UserMealPlan.js";
+import ChatStream from "./components/chatbot.js";
 
 // Main component of the project
 class App extends Component {
@@ -23,24 +33,31 @@ class App extends Component {
 
     // Initialize state variables for managing app state
     this.state = {
-      cuisine: "", // Selected cuisine type for recipe search
-      ingredients: new Set(), // Set of ingredients selected by the user
-      recipeList: [], // List of recipes fetched based on user input
-      recipeByNameList: [], // List of recipes fetched by name
-      searchName: "", // Name of the recipe being searched
-      email: "", // User email
-      flag: false, // Flag to indicate some condition in the form
-      isLoading: false, // Loading state for fetching data
-      isLoggedIn: false, // User authentication state
-      isProfileView: false, // State to toggle profile view
-      isMealPlanView: false, // State to toggle meal plan view
+      cuisine: "",
+      //NoIngredients : 0,
+      ingredients: new Set(),
+      recipeList: [],
+      recipeByNameList: [],
+      searchName: "",
+      email: "",
+      flag: false,
+      isLoading: false,
+      isLoggedIn: false,
+      isProfileView: false,
+      isMealPlanView: false,
+      isChatOpen: false,
       userData: {
         bookmarks: [], // List of user bookmarks
       },
     };
   }
 
-  // Function to handle switching to bookmarks view
+  handleToggleChat = () => {
+    this.setState((prevState) => ({
+      isChatOpen: !prevState.isChatOpen,
+    }));
+  };
+
   handleBookMarks = () => {
     this.setState({
       isProfileView: true,
@@ -304,6 +321,7 @@ class App extends Component {
                   <Tab>Search Recipe</Tab>
                   <Tab>Add Recipe</Tab>
                   <Tab>Search Recipe By Name</Tab>
+                  <Tab>Recipe Bot</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -333,6 +351,29 @@ class App extends Component {
                         searchName={this.state.searchName} // Pass search name to RecipeList
                       />
                     )}
+                  </TabPanel>
+                  <TabPanel>
+                    <Button
+                      onClick={this.handleToggleChat}
+                      colorScheme={this.state.isChatOpen ? "blue" : "green"} // Change color based on state
+                      variant='solid'
+                      size='lg' // Larger button
+                      borderRadius='md' // Rounded corners
+                      boxShadow='md' // Add a subtle shadow for depth
+                      _hover={{
+                        bg: this.state.isChatOpen ? "blue.600" : "green.600", // Darker shade on hover
+                        transform: "scale(1.05)", // Slightly enlarge on hover
+                      }}
+                      _active={{
+                        bg: this.state.isChatOpen ? "blue.700" : "green.700", // Darker shade when active
+                        transform: "scale(0.95)", // Slightly shrink when clicked
+                      }}
+                    >
+                      {this.state.isChatOpen
+                        ? "Close existing chat window"
+                        : "Start a new chat"}
+                    </Button>
+                    {this.state.isChatOpen && <ChatStream />}
                   </TabPanel>
                 </TabPanels>
               </Tabs>

@@ -1,6 +1,10 @@
 name: Running Backend Tests With Coverage
 
 on: 
+  push:
+    branches:
+      - group31-fall24
+      - master
   pull_request:
     branches:
       - group31-fall24
@@ -34,3 +38,7 @@ jobs:
       run: |
           cd Code/backend
           npm run test-cov
+    - name: Upload results to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
