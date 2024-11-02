@@ -59,6 +59,12 @@ const LandingPage = ({ onGetStarted }) => {
               description:
                 "Create and manage your weekly meal plans to simplify grocery shopping.",
             },
+            {
+              src: "https://botsify.com/blog/wp-content/uploads/2020/05/Copy-of-Copy-of-Chatbot-Automation_-The-Use-Case-In-Major-Functions-Of-Your-Business-16.jpg",
+              title: "Chatbot Assistance",
+              description:
+                "Ask your cooking questions or get inspiration from our Recipe Bot.",
+            },
           ].map((feature, index) => (
             <GridItem
               key={index}
